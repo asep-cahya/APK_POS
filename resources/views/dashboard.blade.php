@@ -17,11 +17,10 @@
         </h1>
     </div>
 
-    @can('viewAny', App\Models\User::class)
-
+    {{-- Today's Sales --}}
     <div class="row mb-4">
         <div class="col-md-12">
-            <h3>Today's Sales</h3>
+            <h3 class="text-center">Today's Sales</h3>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -47,9 +46,10 @@
         </div>
     </div>
 
+    {{-- Cash & Payment Status --}}
     <div class="row mb-4">
         <div class="col-md-12">
-            <h3>Cash & Payment Status</h3>
+            <h3 class="text-center">Cash & Payment Status</h3>
         </div>
 
         <div class="col-md-6 mb-3">
@@ -75,12 +75,10 @@
         </div>
     </div>
 
-    @endcan
-
     <div class="row mb-5">
 
         <div class="col-md-6">
-            <h4>Daftar Produk Stok Rendah</h4>
+            <h4 class="text-center">Daftar Produk Stok Rendah</h4>
 
             <table class="table table-bordered">
                 <thead>
@@ -114,7 +112,7 @@
 
         <div class="col-md-6">
 
-            <h4>Produk Habis Stok</h4>
+            <h4 class="text-center">Produk Habis Stok</h4>
 
             <table class="table table-bordered">
                 <thead>
@@ -152,7 +150,7 @@
 
         <div class="col-md-12">
 
-            <h3>Best Seller Products</h3>
+            <h3 class="text-center">Best Seller Products</h3>
 
             <table class="table table-bordered">
 
