@@ -19,11 +19,11 @@ class ItemPenjualan extends Model
         'subtotal'
     ];
 
-      public function produk()
+    public function produk()
     {
         return $this->belongsTo(Produk::class, 'produk_id');
     }
-     public function penjualan()
+    public function penjualan()
     {
         return $this->belongsTo(Penjualan::class, 'penjualan_id');
     }
