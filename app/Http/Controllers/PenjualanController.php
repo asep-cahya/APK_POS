@@ -16,29 +16,29 @@ class PenjualanController extends Controller
      * Display a listing of the resource.
      */
     public function index(SearchRequest $request)
-{
-    $user = Auth::user();
-    $keyword = $request->input('search');
+    {
+        $user = Auth::user();
+        $keyword = $request->input('search');
 
-    $sales = Penjualan::query()
-        // Filter berdasarkan role
-        ->when($user->role->name === 'kasir', function ($query) use ($user) {
-            $query->where('user_id', $user->id);
-        })
+        $sales = Penjualan::query()
+            // Filter berdasarkan role
+            ->when($user->role->name === 'kasir', function ($query) use ($user) {
+                $query->where('user_id', $user->id);
+            })
 
-        // 🔍 Search nama user
-        ->when($keyword, function ($query) use ($keyword) {
-            $query->whereHas('user', function ($q) use ($keyword) {
-                $q->where('name', 'like', '%' . $keyword . '%');
-            });
-        })
+            // 🔍 Search nama user
+            ->when($keyword, function ($query) use ($keyword) {
+                $query->whereHas('user', function ($q) use ($keyword) {
+                    $q->where('name', 'like', '%' . $keyword . '%');
+                });
+            })
 
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
-    return view('penjualan.index', compact('sales'));
-}
+        return view('penjualan.index', compact('sales'));
+    }
 
     /**
      * Show the form for creating a new resource.
@@ -46,24 +46,24 @@ class PenjualanController extends Controller
     public function create(SearchRequest $request)
     {
         $sale = Penjualan::firstOrCreate(
-        [
-            'user_id' => Auth::id(), 
-            'status'  => 'OPEN'      
-        ],
-        [
-            'total_pembayaran' => 0, 
-            'metode_pembayaran' => 'CASH' 
-        ]
+            [
+                'user_id' => Auth::id(),
+                'status'  => 'OPEN'
+            ],
+            [
+                'total_pembayaran' => 0,
+                'metode_pembayaran' => 'CASH'
+            ]
         );
 
         $keyword = $request->input('search');
 
-        if($keyword) {
+        if ($keyword) {
             $products = Produk::when($keyword, function ($query) use ($keyword) {
                 $query->where('nama', 'like', '%' . $keyword . '%');
             })
-            ->orderBy('nama')
-            ->get();
+                ->orderBy('nama')
+                ->get();
         } else {
             $products = Produk::orderBy('nama')->get();
         }
@@ -72,7 +72,6 @@ class PenjualanController extends Controller
         $mode = 'create';
 
         return view('penjualan.pos', compact('sale', 'products', 'mode'));
-
     }
 
     /**
@@ -90,7 +89,7 @@ class PenjualanController extends Controller
     {
         // Load related data, termasuk item penjualan dan produk terkait
         $penjualan->load('itemPenjualan.produk', 'user');
-        
+
         return view('penjualan.show', compact('penjualan'));
     }
 
@@ -145,18 +144,27 @@ class PenjualanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-     public function destroy(Penjualan $penjualan)
+    public function destroy(Penjualan $penjualan)
     {
         $this->authorize('delete', $penjualan);
 
         if ($penjualan->status === 'COMPLETED') {
-            // Jika status complete, redirect ke halaman detail
-            return redirect()->route('penjualan.show', $penjualan)->with('error', 'Penjualan dengan status COMPLETED tidak bisa dihapus langsung.');
+            return redirect()
+                ->route('penjualan.show', $penjualan)
+                ->with('error', 'Penjualan dengan status COMPLETED tidak bisa dihapus.');
         }
 
-        $penjualan->delete();
+        DB::transaction(function () use ($penjualan) {
 
-        return redirect()->route('penjualan.index')->with('success', 'Penjualan berhasil dihapus.');
+            // Hapus semua item penjualan terlebih dahulu
+            $penjualan->itemPenjualan()->delete();
+
+            // Baru hapus penjualannya
+            $penjualan->delete();
+        });
+
+        return redirect()
+            ->route('penjualan.index')
+            ->with('success', 'Penjualan berhasil dihapus.');
     }
 }
-

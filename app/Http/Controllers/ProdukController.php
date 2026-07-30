@@ -6,9 +6,10 @@ use App\Http\Requests\Produk\StoreRequest;
 use App\Http\Requests\Produk\UpdateRequest;
 use App\Http\Requests\SearchRequest;
 use App\Models\Produk;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Models\ItemPenjualan;
 
 class ProdukController extends Controller
 {
@@ -22,17 +23,17 @@ class ProdukController extends Controller
         $keyword = $request->input('search');
 
         if ($keyword) {
-           $products = Produk::when($keyword, function ($query) use ($keyword) {
-           $query->where('nama', 'like', '%' . $keyword . '%');
-        })
-        ->orderBy('nama')
-        ->paginate(10)
-        ->withQueryString();
-    } else {
-        $products = Produk::latest()
-        ->paginate(10)
-        ->withQueryString();
-    }
+            $products = Produk::when($keyword, function ($query) use ($keyword) {
+                $query->where('nama', 'like', '%' . $keyword . '%');
+            })
+                ->orderBy('nama')
+                ->paginate(10)
+                ->withQueryString();
+        } else {
+            $products = Produk::latest()
+                ->paginate(10)
+                ->withQueryString();
+        }
         return view('produk.index', compact('products'));
     }
 
@@ -59,16 +60,15 @@ class ProdukController extends Controller
         $data['harga_beli'] = $dataReq['purchase_price'];
         $data['harga_jual'] = $dataReq['selling_price'];
         $data['stok'] = $dataReq['stok'] ?? 0;
-        
+
         if ($request->hasFile('foto')) {
             $data['foto'] = $request->file('foto')->store('products', 'public');
-            }
-            
+        }
+
         Produk::create($data);
-            return redirect()
+        return redirect()
             ->route('produk.index')
             ->with('success', 'Product created successfully.');
-
     }
 
     /**
@@ -77,9 +77,9 @@ class ProdukController extends Controller
 
     public function show(Produk $produk)
     {
-    $this->authorize('view', $produk);
+        $this->authorize('view', $produk);
 
-    return view('produk.show', compact('produk'));
+        return view('produk.show', compact('produk'));
     }
 
 
@@ -108,22 +108,21 @@ class ProdukController extends Controller
             'harga_jual'  => $dataReq['selling_price'],
             'stok'        => $dataReq['stok'],
         ];
-        
-        if ($request->hasFile('foto')) {
-        
-        if (
-            $produk->foto &&
-            Storage::disk('public')->exists($produk->foto)
-        ) {
-            Storage::disk('public')->delete($produk->foto);
-        }
 
-        
-        $data['foto'] = $request->file('foto')->store('products', 'public');
-        
+        if ($request->hasFile('foto')) {
+
+            if (
+                $produk->foto &&
+                Storage::disk('public')->exists($produk->foto)
+            ) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+
+
+            $data['foto'] = $request->file('foto')->store('products', 'public');
         }
         $produk->update($data);
-        
+
         return redirect()->route('produk.edit', $produk->id)->with('success', 'Product updated successfully.');
     }
 
@@ -133,16 +132,22 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
-        $this->authorize('delete', $produk);
-        
-        if ($produk->foto) {
-            Storage::disk('public')->delete($produk->foto);
-        }
-        
-        $produk->delete();
-        
-        return redirect()->route('produk.index') ->with('success', 'Product deleted successfully.');
-                     
-    }
+        DB::transaction(function () use ($produk) {
 
+            // Hapus detail transaksi yang memakai produk ini
+            ItemPenjualan::where('produk_id', $produk->id)->delete();
+
+            // Hapus foto produk
+            if ($produk->foto) {
+                Storage::disk('public')->delete($produk->foto);
+            }
+
+            // Hapus produk
+            $produk->delete();
+        });
+
+        return redirect()
+            ->route('produk.index')
+            ->with('success', 'Produk berhasil dihapus.');
+    }
 }
