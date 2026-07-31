@@ -6,183 +6,267 @@
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
+<div class="container py-4">
 
-    <div class="text-center mb-4">
-        <h1>
-            Ringkasan Hari Ini
-            <small class="text-muted">
-                ({{ $tanggalHariIni->translatedFormat('l, d F Y') }})
-            </small>
-        </h1>
+    <!-- Header -->
+    <div class="text-center mb-5">
+        <h2 class="fw-bold">
+            📊 Dashboard POS
+        </h2>
+
+        <p class="text-muted mb-0">
+            {{ $tanggalHariIni->translatedFormat('l, d F Y') }}
+        </p>
     </div>
 
-    {{-- Today's Sales --}}
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h3 class="text-center">Today's Sales</h3>
-        </div>
+    <!-- Statistik -->
+    <div class="row g-4 mb-5">
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    Total Nilai Penjualan Hari Ini
-                </div>
-                <div class="card-body">
-                    <h4>Rp {{ number_format($ringkasan['total_penjualan']) }}</h4>
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-primary text-white h-100">
+                <div class="card-body text-center">
+                    <h1>💰</h1>
+                    <h6>Total Penjualan</h6>
+                    <h3>Rp {{ number_format($ringkasan['total_penjualan'],0,',','.') }}</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    Jumlah Transaksi Hari Ini
-                </div>
-                <div class="card-body">
-                    <h4>{{ $ringkasan['total_transaksi'] }}</h4>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    {{-- Cash & Payment Status --}}
-    <div class="row mb-4">
-        <div class="col-md-12">
-            <h3 class="text-center">Cash & Payment Status</h3>
-        </div>
-
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    Total Pembayaran Tunai
-                </div>
-                <div class="card-body">
-                    <h4>Rp {{ number_format($ringkasan['total_cash']) }}</h4>
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-success text-white h-100">
+                <div class="card-body text-center">
+                    <h1>🛒</h1>
+                    <h6>Total Transaksi</h6>
+                    <h3>{{ $ringkasan['total_transaksi'] }}</h3>
                 </div>
             </div>
         </div>
 
-        <div class="col-md-6 mb-3">
-            <div class="card">
-                <div class="card-header">
-                    Total Pembayaran Non Tunai
-                </div>
-                <div class="card-body">
-                    <h4>Rp {{ number_format($ringkasan['total_non_tunai']) }}</h4>
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-warning text-dark h-100">
+                <div class="card-body text-center">
+                    <h1>💵</h1>
+                    <h6>Pembayaran Cash</h6>
+                    <h3>Rp {{ number_format($ringkasan['total_cash'],0,',','.') }}</h3>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="row mb-5">
-
-        <div class="col-md-6">
-            <h4 class="text-center">Daftar Produk Stok Rendah</h4>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Stok</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @forelse($produkStokRendah as $index => $produk)
-                    <tr>
-                        <td>{{ $produkStokRendah->firstItem() + $index }}</td>
-                        <td>{{ $produk->nama }}</td>
-                        <td>{{ $produk->stok }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="3" class="text-center">
-                            Seluruh produk berada dalam kondisi stok aman.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
-            {{ $produkStokRendah->links() }}
-
-        </div>
-
-        <div class="col-md-6">
-
-            <h4 class="text-center">Produk Habis Stok</h4>
-
-            <table class="table table-bordered">
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Stok</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @forelse($produkStokHabis as $index => $produk)
-                    <tr>
-                        <td>{{ $produkStokHabis->firstItem() + $index }}</td>
-                        <td>{{ $produk->nama }}</td>
-                        <td>{{ $produk->stok }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="3" class="text-center">
-                            Tidak ada produk yang habis.
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
-            {{ $produkStokHabis->links() }}
-
+        <div class="col-md-3">
+            <div class="card shadow border-0 bg-info text-white h-100">
+                <div class="card-body text-center">
+                    <h1>💳</h1>
+                    <h6>Non Tunai</h6>
+                    <h3>Rp {{ number_format($ringkasan['total_non_tunai'],0,',','.') }}</h3>
+                </div>
+            </div>
         </div>
 
     </div>
 
+    <!-- Stok -->
     <div class="row">
 
-        <div class="col-md-12">
+        <div class="col-lg-6 mb-4">
 
-            <h3 class="text-center">Best Seller Products</h3>
+            <div class="card shadow border-0">
 
-            <table class="table table-bordered">
+                <div class="card-header bg-warning text-dark">
+                    <h5 class="mb-0">
+                        ⚠ Produk Stok Rendah
+                    </h5>
+                </div>
 
-                <thead>
-                    <tr>
-                        <th>No</th>
-                        <th>Nama Produk</th>
-                        <th>Stok</th>
-                        <th>Unit Terjual</th>
-                    </tr>
-                </thead>
+                <div class="card-body">
 
-                <tbody>
+                    <div class="table-responsive">
 
-                    @forelse($produkTerlaris as $index => $produk)
-                    <tr>
-                        <td>{{ $index + 1 }}</td>
-                        <td>{{ $produk->nama }}</td>
-                        <td>{{ $produk->stok }}</td>
-                        <td>{{ $produk->total_terjual }}</td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="4" class="text-center">
-                            Belum ada data penjualan.
-                        </td>
-                    </tr>
-                    @endforelse
+                        <table class="table table-hover align-middle">
 
-                </tbody>
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Produk</th>
+                                    <th>Stok</th>
+                                </tr>
+                            </thead>
 
-            </table>
+                            <tbody>
+
+                                @forelse($produkStokRendah as $index => $produk)
+
+                                <tr>
+                                    <td>{{ $produkStokRendah->firstItem()+$index }}</td>
+                                    <td>{{ $produk->nama }}</td>
+                                    <td>
+                                        <span class="badge bg-warning text-dark">
+                                            {{ $produk->stok }}
+                                        </span>
+                                    </td>
+                                </tr>
+
+                                @empty
+
+                                <tr>
+                                    <td colspan="3" class="text-center text-muted">
+                                        Semua stok aman
+                                    </td>
+                                </tr>
+
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {{ $produkStokRendah->links() }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-lg-6 mb-4">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-danger text-white">
+                    <h5 class="mb-0">
+                        ❌ Produk Habis
+                    </h5>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <table class="table table-hover">
+
+                            <thead>
+                                <tr>
+                                    <th>No</th>
+                                    <th>Produk</th>
+                                    <th>Stok</th>
+                                </tr>
+                            </thead>
+
+                            <tbody>
+
+                                @forelse($produkStokHabis as $index => $produk)
+
+                                <tr>
+
+                                    <td>{{ $produkStokHabis->firstItem()+$index }}</td>
+
+                                    <td>{{ $produk->nama }}</td>
+
+                                    <td>
+                                        <span class="badge bg-danger">
+                                            {{ $produk->stok }}
+                                        </span>
+                                    </td>
+
+                                </tr>
+
+                                @empty
+
+                                <tr>
+
+                                    <td colspan="3" class="text-center text-muted">
+                                        Tidak ada produk habis.
+                                    </td>
+
+                                </tr>
+
+                                @endforelse
+
+                            </tbody>
+
+                        </table>
+
+                    </div>
+
+                    {{ $produkStokHabis->links() }}
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Best Seller -->
+
+    <div class="card shadow border-0">
+
+        <div class="card-header bg-success text-white">
+
+            <h5 class="mb-0">
+                🏆 Best Seller Products
+            </h5>
+
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-striped table-hover align-middle">
+
+                    <thead class="table-light">
+
+                        <tr>
+                            <th>No</th>
+                            <th>Produk</th>
+                            <th>Stok</th>
+                            <th>Terjual</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                        @forelse($produkTerlaris as $index => $produk)
+
+                        <tr>
+
+                            <td>{{ $index+1 }}</td>
+
+                            <td class="fw-semibold">
+                                {{ $produk->nama }}
+                            </td>
+
+                            <td>{{ $produk->stok }}</td>
+
+                            <td>
+                                <span class="badge bg-success">
+                                    {{ $produk->total_terjual }}
+                                </span>
+                            </td>
+
+                        </tr>
+
+                        @empty
+
+                        <tr>
+
+                            <td colspan="4" class="text-center text-muted">
+                                Belum ada data penjualan.
+                            </td>
+
+                        </tr>
+
+                        @endforelse
+
+                    </tbody>
+
+                </table>
+
+            </div>
 
         </div>
 

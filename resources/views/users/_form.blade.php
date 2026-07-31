@@ -1,79 +1,138 @@
 @csrf
 
-<div class="mb-3">
-    <label class="form-label">Nama</label>
-    <input
-        type="text"
-        name="name"
-        class="form-control @error('name') is-invalid @enderror"
-        value="{{ old('name', $user->name ?? '') }}">
+<div class="card shadow border-0">
 
-    @error('name')
-    <div class="invalid-feedback">
-        {{ $message }}
+    <div class="card-header bg-primary text-white">
+        <h4 class="mb-0">
+            👤 Data User
+        </h4>
     </div>
-    @enderror
-</div>
 
-<div class="mb-3">
-    <label class="form-label">Email</label>
-    <input
-        type="email"
-        name="email"
-        class="form-control @error('email') is-invalid @enderror"
-        value="{{ old('email', $user->email ?? '') }}">
+    <div class="card-body">
 
-    @error('email')
-    <div class="invalid-feedback">
-        {{ $message }}
+        <div class="row">
+
+            <!-- Nama -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                    Nama <span class="text-danger">*</span>
+                </label>
+
+                <input
+                    type="text"
+                    name="name"
+                    class="form-control @error('name') is-invalid @enderror"
+                    value="{{ old('name', $user->name ?? '') }}"
+                    placeholder="Masukkan nama lengkap">
+
+                @error('name')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <!-- Email -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                    Email <span class="text-danger">*</span>
+                </label>
+
+                <input
+                    type="email"
+                    name="email"
+                    class="form-control @error('email') is-invalid @enderror"
+                    value="{{ old('email', $user->email ?? '') }}"
+                    placeholder="Masukkan email">
+
+                @error('email')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <!-- Password -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                    Password
+
+                    @isset($user)
+                    <small class="text-muted">(Kosongkan jika tidak diubah)</small>
+                    @endisset
+
+                </label>
+
+                <input
+                    type="password"
+                    name="password"
+                    class="form-control @error('password') is-invalid @enderror"
+                    placeholder="Masukkan password">
+
+                @error('password')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+            </div>
+
+            <!-- Role -->
+            <div class="col-md-6 mb-3">
+                <label class="form-label fw-semibold">
+                    Role <span class="text-danger">*</span>
+                </label>
+
+                <select
+                    name="role_id"
+                    class="form-select @error('role_id') is-invalid @enderror">
+
+                    <option value="">
+                        -- Pilih Role --
+                    </option>
+
+                    @foreach($roles as $role)
+
+                    <option
+                        value="{{ $role->id }}"
+                        @selected(old('role_id', $user->role_id ?? '') == $role->id)>
+
+                        {{ ucfirst($role->name) }}
+
+                    </option>
+
+                    @endforeach
+
+                </select>
+
+                @error('role_id')
+                <div class="invalid-feedback">
+                    {{ $message }}
+                </div>
+                @enderror
+
+            </div>
+
+        </div>
+
     </div>
-    @enderror
-</div>
 
-<div class="mb-3">
-    <label class="form-label">Password</label>
-    <input
-        type="password"
-        name="password"
-        class="form-control @error('password') is-invalid @enderror">
+    <div class="card-footer bg-white text-end">
 
-    @error('password')
-    <div class="invalid-feedback">
-        {{ $message }}
+        <a href="{{ route('admin.users') }}"
+            class="btn btn-secondary">
+
+            ← Kembali
+
+        </a>
+
+        <button
+            type="submit"
+            class="btn btn-success">
+
+            💾 Simpan
+
+        </button>
+
     </div>
-    @enderror
+
 </div>
-
-<div class="mb-3">
-    <label class="form-label">Role</label>
-
-    <select
-        name="role_id"
-        class="form-select @error('role_id') is-invalid @enderror">
-
-        <option value="">-- Pilih Role --</option>
-
-        @foreach($roles as $role)
-        <option
-            value="{{ $role->id }}"
-            @selected(old('role_id', $user->role_id ?? '') == $role->id)>
-            {{ ucfirst($role->name) }}
-        </option>
-        @endforeach
-
-    </select>
-
-    @error('role_id')
-    <div class="invalid-feedback">
-        {{ $message }}
-    </div>
-    @enderror
-</div>
-
-<button type="submit" class="btn btn-success">
-    Simpan
-</button>
-
-<a href="{{ route('admin.users') }}" class="btn btn-secondary">
-    Kembali
-</a>

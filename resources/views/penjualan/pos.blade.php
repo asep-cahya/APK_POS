@@ -4,165 +4,327 @@
 
 @section('content')
 
-@if(session('errors'))
-    <div class="alert alert-danger">
+<div class="container mt-4">
+
+    @if(session('errors'))
+    <div class="alert alert-danger shadow-sm">
         {{ session('errors') }}
     </div>
-@endif
+    @endif
 
-<h4 class="mb-3">Tambah dan Edit</h4>
+    <!-- Header -->
+    <div class="mb-4">
+        <h2 class="fw-bold text-primary">
+            🛒 Point Of Sale (POS)
+        </h2>
 
-<div class="row">
+        <p class="text-muted mb-0">
+            Tambahkan produk ke keranjang dan lakukan transaksi penjualan.
+        </p>
+    </div>
 
-    {{-- ================= PRODUK ================= --}}
-    <div class="col-md-6">
-        <div class="card">
-            <div class="card-body" style="max-height:70vh; overflow:auto">
+    <div class="row">
 
-                {{-- Search Produk --}}
-                <div class="mb-3">
-                    <form method="GET" action="{{ route('penjualan.create') }}">
-                        <input
-                            type="text"
-                            name="search"
-                            value="{{ request('search') }}"
-                            class="form-control"
-                            placeholder="Cari produk..."
-                            onkeyup="this.form.submit()">
-                    </form>
+        <!-- ================= DAFTAR PRODUK ================= -->
+        <div class="col-lg-6 mb-3">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">
+                        📦 Daftar Produk
+                    </h5>
                 </div>
 
-                @foreach($products as $product)
-                <form method="POST" action="{{ route('itempenjualan.store') }}" class="row mb-2">
-                    @csrf
+                <div class="card-body" style="max-height:70vh;overflow:auto;">
 
-                   <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <form method="GET"
+                        action="{{ route('penjualan.create') }}"
+                        class="mb-3">
 
+                        <div class="input-group">
 
-                    <div class="col-7">
-                        <button type="submit"
-                            class="btn btn-outline-primary w-100 text-start p-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
-                            <div class="d-flex align-items-center gap-2">
+                            <input
+                                type="text"
+                                name="search"
+                                value="{{ request('search') }}"
+                                class="form-control"
+                                placeholder="Cari produk..."
+                                onkeyup="this.form.submit()">
 
-                                {{-- Gambar produk --}}
-                                <img
-                                    src="{{ asset('storage/'.$product->foto) }}"
-                                    alt="Gambar"
-                                    class="rounded-circle"
-                                    style="width:45px; height:45px; object-fit:cover;">
+                            <button class="btn btn-primary">
+                                Cari
+                            </button>
 
-                                {{-- Nama & harga --}}
-                                <div>
-                                    <div class="fw-semibold">{{ $product->nama }}</div>
-                                    <small class="text-muted">{{ number_format($product->harga_jual) }}</small>
+                        </div>
+
+                    </form>
+
+                    @foreach($products as $product)
+
+                    <form method="POST"
+                        action="{{ route('itempenjualan.store') }}"
+                        class="mb-3">
+
+                        @csrf
+
+                        <input type="hidden"
+                            name="product_id"
+                            value="{{ $product->id }}">
+
+                        <div class="card border">
+
+                            <div class="card-body">
+
+                                <div class="row align-items-center">
+
+                                    <div class="col-2">
+
+                                        <img
+                                            src="{{ asset('storage/'.$product->foto) }}"
+                                            class="rounded-circle shadow"
+                                            style="width:60px;height:60px;object-fit:cover;">
+
+                                    </div>
+
+                                    <div class="col-5">
+
+                                        <h6 class="mb-1">
+                                            {{ $product->nama }}
+                                        </h6>
+
+                                        <small class="text-success fw-bold">
+                                            Rp {{ number_format($product->harga_jual) }}
+                                        </small>
+
+                                    </div>
+
+                                    <div class="col-3">
+
+                                        <input
+                                            type="number"
+                                            name="quantity"
+                                            value="1"
+                                            min="1"
+                                            class="form-control {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}">
+
+                                    </div>
+
+                                    <div class="col-2">
+
+                                        <button
+                                            class="btn btn-primary w-100 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
+
+                                            +
+
+                                        </button>
+
+                                    </div>
+
                                 </div>
 
                             </div>
+
+                        </div>
+
+                    </form>
+
+                    @endforeach
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================= KERANJANG ================= -->
+
+        <div class="col-lg-6">
+
+            <div class="card shadow border-0">
+
+                <div class="card-header bg-success text-white">
+
+                    <h5 class="mb-0">
+                        🛍 Keranjang Belanja
+                    </h5>
+
+                </div>
+
+                <div class="table-responsive">
+
+                    <table class="table table-hover align-middle mb-0">
+
+                        <thead class="table-light">
+
+                            <tr>
+
+                                <th>Produk</th>
+                                <th>Harga</th>
+                                <th>Qty</th>
+                                <th>Subtotal</th>
+                                <th>Aksi</th>
+
+                            </tr>
+
+                        </thead>
+
+                        <tbody>
+
+                            @forelse($sale->itemPenjualan as $item)
+
+                            <tr>
+
+                                <td>{{ $item->produk->nama }}</td>
+
+                                <td class="text-success fw-bold">
+                                    Rp {{ number_format($item->produk->harga_jual) }}
+                                </td>
+
+                                <td width="90">
+
+                                    <form
+                                        method="POST"
+                                        action="{{ route('itempenjualan.update',$item->id) }}">
+
+                                        @csrf
+                                        @method('PUT')
+
+                                        <input
+                                            type="number"
+                                            name="quantity"
+                                            value="{{ $item->kuantitas }}"
+                                            class="form-control form-control-sm">
+
+                                    </form>
+
+                                </td>
+
+                                <td>
+                                    Rp {{ number_format($item->subtotal) }}
+                                </td>
+
+                                <td>
+
+                                    @can('delete',$item)
+
+                                    <form
+                                        method="POST"
+                                        action="{{ route('itempenjualan.destroy',$item->id) }}">
+
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            class="btn btn-danger btn-sm">
+
+                                            Hapus
+
+                                        </button>
+
+                                    </form>
+
+                                    @endcan
+
+                                </td>
+
+                            </tr>
+
+                            @empty
+
+                            <tr>
+
+                                <td colspan="5"
+                                    class="text-center text-muted py-4">
+
+                                    Belum ada item di keranjang.
+
+                                </td>
+
+                            </tr>
+
+                            @endforelse
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+
+                <div class="card-footer bg-light">
+
+                    <div class="d-flex justify-content-between mb-3">
+
+                        <h5>Total</h5>
+
+                        <h4 class="text-success">
+                            Rp {{ number_format($sale->total_pembayaran) }}
+                        </h4>
+
+                    </div>
+
+                    <form
+                        method="POST"
+                        action="{{ route('penjualan.update',$sale->id) }}"
+                        onsubmit="return confirm('Yakin ingin checkout?')">
+
+                        @csrf
+                        @method('PUT')
+
+                        <select
+                            name="payment_method"
+                            class="form-select mb-3">
+
+                            <option value="">
+                                Pilih Metode Pembayaran
+                            </option>
+
+                            <option value="CASH">
+                                Cash
+                            </option>
+
+                            <option value="QRIS">
+                                QRIS
+                            </option>
+
+                        </select>
+
+                        <button
+                            class="btn btn-success w-100 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
+
+                            ✅ Checkout
+
                         </button>
-                    </div>
 
-                    <div class="col-3">
-                        <input
-                            type="number"
-                            name="quantity"
-                            value="1"
-                            min="1"
-                            class="form-control {{ $sale->status === 'COMPLETED' ? 'readonly' : '' }}">
-                    </div>
+                    </form>
 
-                    <div class="col-2">
-                        <button class="btn btn-primary w-100 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">+</button>
-                    </div>
-                </form>
-                @endforeach
+                    @can('delete',$sale)
+
+                    <form
+                        method="POST"
+                        action="{{ route('penjualan.destroy',$sale->id) }}"
+                        onsubmit="return confirm('Yakin ingin membatalkan transaksi?')">
+
+                        @csrf
+                        @method('DELETE')
+
+                        <button
+                            class="btn btn-outline-danger w-100 mt-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
+
+                            ❌ Batalkan Transaksi
+
+                        </button>
+
+                    </form>
+
+                    @endcan
+
+                </div>
 
             </div>
+
         </div>
-    </div>
 
-    {{-- ================= KERANJANG ================= --}}
-    <div class="col-md-6">
-        <div class="card">
-            <table class="table table-bordered mb-0">
-                <thead>
-                    <tr>
-                        <th>Produk</th>
-                        <th>Harga</th>
-                        <th>Qty</th>
-                        <th>Subtotal</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-
-                <tbody>
-                    @forelse($sale->itemPenjualan as $item)
-                    <tr>
-                        <td>{{ $item->produk->nama }}</td>
-                        <td>Rp.{{ number_format($item->produk->harga_jual) }}</td>
-                        <td>
-                            <form method="POST" action="{{ route('itempenjualan.update', $item->id) }}">
-                            @csrf @method('PUT')
-                                <input
-                                    type="number"
-                                    name="quantity"
-                                    value="{{ $item->kuantitas }}"
-                                    class="form-control form-control-sm">
-                            </form>
-                        </td>
-                        <td>Rp {{ number_format($item->subtotal) }}</td>
-                        <td>
-                            @can('delete', $item)
-                            <form method="POST" action="{{ route('itempenjualan.destroy', $item->id) }}">
-                            @csrf @method('DELETE')
-                                <button class="btn btn-danger btn-sm">
-                                    Hapus
-                                </button>
-                            </form>
-                            @endcan
-                        </td>
-                    </tr>
-                    @empty
-                    <tr>
-                        <td colspan="4" class="text-center text-muted">
-                            Belum ada item
-                        </td>
-                    </tr>
-                    @endforelse
-                </tbody>
-            </table>
-
-            <div class="card-footer">
-                <strong>Rp {{ number_format($sale->total_pembayaran) }}</strong>
-
-                {{-- Checkout --}}
-                <form method="POST"
-                 action="{{ route('penjualan.update', $sale->id) }}"
-                 onsubmit="return confirm('Yakin ingin checkout?')" class="mt-2">
-                @csrf 
-                @method('PUT')
-                    <select name="payment_method" class="form-select mb-2">
-                        <option value="">Pilih Pembayaran</option>
-                        <option value="CASH">Cash</option>
-                        <option value="QRIS">QRIS</option>
-                    </select>
-
-                    <button class="btn btn-success w-100 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
-                        Checkout
-                    </button>
-                </form>
-
-                {{-- Batal --}}
-                 @can('delete', $sale)
-                <form action="{{ route('penjualan.destroy', $sale->id) }}" method="POST" onsubmit="return confirm('Yakin ingin membatalkan transaksi?')">
-                @csrf @method('DELETE')
-
-                <button class="btn btn-outline-danger w-100 mt-2 {{ $sale->status === 'COMPLETED' ? 'disabled' : '' }}">
-                    Batalkan Transaksi
-                </button>
-            </form>
-            @endcan
-            </div>
-        </div>
     </div>
 
 </div>
