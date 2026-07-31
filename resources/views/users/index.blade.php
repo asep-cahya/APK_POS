@@ -55,7 +55,7 @@
             <td>
                 <a href="{{ route('admin.users.edit', $user) }}"
                     class="btn btn-warning btn-sm">
-                    Edit
+                    Edit Users
                 </a>
 
                 <form action="{{ route('admin.users.destroy', $user) }}"

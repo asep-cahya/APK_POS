@@ -7,11 +7,11 @@
 @include('layouts.navbar')
 
 @if(session('errors'))
-     <div class="alert alert-danger">
-        {{ session('errors') }}
-     </div>
+<div class="alert alert-danger">
+    {{ session('errors') }}
+</div>
 @endif
-    
+
 
 <h1>Halaman Penjualan</h1>
 
@@ -24,8 +24,7 @@
             name="search"
             value=""
             class="form-control"
-            placeholder="Search nama produk"
-        >
+            placeholder="Search nama produk">
         <button class="btn btn-outline-secondary" type="submit">
             Search
         </button>
@@ -33,61 +32,63 @@
 </form>
 
 <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-       <th scope="col">Tanggal Transaksi</th>
-      <th scope="col">Kasir</th>
-      <th scope="col">Total Pembayaran</th>
-      <th scope="col">Metode Pembayaran</th>
-      <th scope="col">Status</th>
-      <th scope="col">Aksi</th>
-    </tr>
-  </thead>
-  <tbody>
-    @forelse($sales as $sale)
-    <tr>
-    <td scope="row">{{ $sales->firstItem() + $loop->index }}</td>
-    <td>{{ $sale->created_at->translatedFormat('d-m-Y H:i:s')}}</td>
-    <td>{{ $sale->user->name }}</td>
-    <td>Rp.{{number_format($sale->total_pembayaran)}}</td>
-    <td>{{ $sale->metode_pembayaran }}</td>
-    <td>{{ $sale->status }}</td>
-    <td class="d-flex gap-1">
-    <a href="" class="btn btn-primary btn-sm">Detail</a>
-     @can('view', $sale)
-    ||
-    <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-warning btn-sm">Edit</a>
-    @endcan
-    @can('delete', $sale)
-    ||
-    <form action="{{ route('penjualan.destroy', $sale) }}"
-          method="POST"
-          class="d-inline">
-        @csrf
-        @method('DELETE')
+    <thead>
+        <tr>
+            <th scope="col">#</th>
+            <th scope="col">Tanggal Transaksi</th>
+            <th scope="col">Kasir</th>
+            <th scope="col">Total Pembayaran</th>
+            <th scope="col">Metode Pembayaran</th>
+            <th scope="col">Status</th>
+            <th scope="col">Aksi</th>
+        </tr>
+    </thead>
+    <tbody>
+        @forelse($sales as $sale)
+        <tr>
+            <td scope="row">{{ $sales->firstItem() + $loop->index }}</td>
+            <td>{{ $sale->created_at->translatedFormat('d-m-Y H:i:s')}}</td>
+            <td>{{ $sale->user->name }}</td>
+            <td>Rp.{{number_format($sale->total_pembayaran)}}</td>
+            <td>{{ $sale->metode_pembayaran }}</td>
+            <td>{{ $sale->status }}</td>
+            <td class="d-flex gap-1">
+                <a href="{{ route('penjualan.show', $sale) }}" class="btn btn-primary btn-sm">
+                    Detail
+                </a>
+                @can('view', $sale)
+                ||
+                <a href="{{ route('penjualan.edit', $sale) }}" class="btn btn-warning btn-sm">Edit</a>
+                @endcan
+                @can('delete', $sale)
+                ||
+                <form action="{{ route('penjualan.destroy', $sale) }}"
+                    method="POST"
+                    class="d-inline">
+                    @csrf
+                    @method('DELETE')
 
-        <button type="submit"
-                class="btn btn-danger btn-sm"
-                onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
-            Hapus
-        </button>
-    </form>
-    @endcan
-</td>
+                    <button type="submit"
+                        class="btn btn-danger btn-sm"
+                        onclick="return confirm('Apakah anda yakin akan menghapus penjualan ini?')">
+                        Hapus
+                    </button>
+                </form>
+                @endcan
+            </td>
 
-</tr>
-@empty
-<tr>
-    <td colspan="6">Data Tidak Ditemukan</td>
-</tr>
-@endforelse
-</tbody>
+        </tr>
+        @empty
+        <tr>
+            <td colspan="6">Data Tidak Ditemukan</td>
+        </tr>
+        @endforelse
+    </tbody>
 </table>
 
 {{ $sales->links() }}
 
-  </tbody>
+</tbody>
 </table>
 
 @endsection
