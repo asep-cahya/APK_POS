@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Users')
@@ -6,29 +7,30 @@
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
+<div class="container py-5">
 
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
 
         <div>
-            <h2 class="fw-bold text-primary mb-1">
-                👥 Manajemen User
+            <h2 class="fw-bold mb-1">
+                Manajemen User
             </h2>
+
             <p class="text-muted mb-0">
                 Kelola data pengguna aplikasi POS.
             </p>
         </div>
 
         <a href="{{ route('admin.users.create') }}"
-            class="btn btn-primary shadow-sm">
-            + Tambah User
+            class="btn btn-dark px-4 rounded-3">
+            Tambah User
         </a>
 
     </div>
 
     <!-- Search -->
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
 
         <div class="card-body">
 
@@ -41,10 +43,10 @@
                         name="search"
                         value="{{ request('search') }}"
                         class="form-control"
-                        placeholder="Cari nama atau email...">
+                        placeholder="Cari nama atau email">
 
-                    <button class="btn btn-primary">
-                        🔍 Search
+                    <button class="btn btn-dark">
+                        Cari
                     </button>
 
                 </div>
@@ -56,31 +58,27 @@
     </div>
 
     <!-- Table -->
-    <div class="card shadow border-0">
-
-        <div class="card-header bg-primary text-white">
-
-            <h5 class="mb-0">
-                Daftar User
-            </h5>
-
-        </div>
+    <div class="card border-0 shadow-sm rounded-4">
 
         <div class="card-body">
 
+            <h5 class="fw-bold mb-4">
+                Daftar User
+            </h5>
+
             <div class="table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table align-middle">
 
                     <thead class="table-light">
 
-                        <tr class="text-center">
+                        <tr>
 
-                            <th>No</th>
-                            <th class="text-start">Nama</th>
-                            <th class="text-start">Email</th>
-                            <th>Role</th>
-                            <th width="220">Aksi</th>
+                            <th width="60" class="text-center">No</th>
+                            <th>Nama</th>
+                            <th>Email</th>
+                            <th class="text-center">Role</th>
+                            <th width="170" class="text-center">Aksi</th>
 
                         </tr>
 
@@ -97,7 +95,7 @@
                             </td>
 
                             <td class="fw-semibold">
-                                👤 {{ $user->name }}
+                                {{ $user->name }}
                             </td>
 
                             <td>
@@ -108,15 +106,15 @@
 
                                 @if($user->role->name == 'admin')
 
-                                <span class="badge bg-danger">
-                                    Admin
-                                </span>
+                                    <span class="badge bg-dark rounded-pill px-3">
+                                        Admin
+                                    </span>
 
                                 @else
 
-                                <span class="badge bg-success">
-                                    Kasir
-                                </span>
+                                    <span class="badge border border-dark text-dark rounded-pill px-3">
+                                        Kasir
+                                    </span>
 
                                 @endif
 
@@ -125,11 +123,12 @@
                             <td class="text-center">
 
                                 <a href="{{ route('admin.users.edit', $user) }}"
-                                    class="btn btn-warning btn-sm">
-                                    ✏ Edit
+                                    class="btn btn-outline-dark btn-sm">
+                                    Edit
                                 </a>
 
-                                <form action="{{ route('admin.users.destroy', $user) }}"
+                                <form
+                                    action="{{ route('admin.users.destroy', $user) }}"
                                     method="POST"
                                     class="d-inline">
 
@@ -137,10 +136,11 @@
                                     @method('DELETE')
 
                                     <button
-                                        class="btn btn-danger btn-sm"
+                                        type="submit"
+                                        class="btn btn-dark btn-sm"
                                         onclick="return confirm('Yakin ingin menghapus user ini?')">
 
-                                        🗑 Hapus
+                                        Hapus
 
                                     </button>
 
@@ -154,7 +154,8 @@
 
                         <tr>
 
-                            <td colspan="5" class="text-center py-4 text-muted">
+                            <td colspan="5"
+                                class="text-center text-muted py-5">
 
                                 Belum ada data user.
 
@@ -172,7 +173,7 @@
 
         </div>
 
-        <div class="card-footer bg-white">
+        <div class="card-footer bg-white border-0">
 
             {{ $users->links() }}
 
@@ -183,3 +184,4 @@
 </div>
 
 @endsection
+

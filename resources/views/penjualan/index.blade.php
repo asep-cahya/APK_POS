@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Penjualan')
@@ -6,7 +7,7 @@
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
+<div class="container py-5">
 
     @if(session('success'))
     <div class="alert alert-success alert-dismissible fade show">
@@ -23,11 +24,11 @@
     @endif
 
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
 
         <div>
-            <h2 class="fw-bold text-primary">
-                🧾 Manajemen Penjualan
+            <h2 class="fw-bold mb-1">
+                Manajemen Penjualan
             </h2>
 
             <p class="text-muted mb-0">
@@ -36,16 +37,16 @@
         </div>
 
         <a href="{{ route('penjualan.create') }}"
-            class="btn btn-primary shadow-sm">
+            class="btn btn-dark rounded-3 px-4">
 
-            + Buat Transaksi
+            Buat Transaksi
 
         </a>
 
     </div>
 
     <!-- Search -->
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
 
         <div class="card-body">
 
@@ -58,10 +59,10 @@
                         name="search"
                         value="{{ request('search') }}"
                         class="form-control"
-                        placeholder="Cari nama kasir...">
+                        placeholder="Cari nama kasir">
 
-                    <button class="btn btn-primary">
-                        🔍 Search
+                    <button class="btn btn-dark">
+                        Cari
                     </button>
 
                 </div>
@@ -73,34 +74,29 @@
     </div>
 
     <!-- Table -->
-
-    <div class="card shadow border-0">
-
-        <div class="card-header bg-primary text-white">
-
-            <h5 class="mb-0">
-                Daftar Penjualan
-            </h5>
-
-        </div>
+    <div class="card border-0 shadow-sm rounded-4">
 
         <div class="card-body">
 
+            <h5 class="fw-bold mb-4">
+                Daftar Penjualan
+            </h5>
+
             <div class="table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table align-middle">
 
                     <thead class="table-light">
 
-                        <tr class="text-center">
+                        <tr>
 
-                            <th>No</th>
+                            <th width="60" class="text-center">No</th>
                             <th>Tanggal</th>
                             <th>Kasir</th>
                             <th>Total</th>
-                            <th>Metode</th>
-                            <th>Status</th>
-                            <th width="240">Aksi</th>
+                            <th class="text-center">Metode</th>
+                            <th class="text-center">Status</th>
+                            <th width="220" class="text-center">Aksi</th>
 
                         </tr>
 
@@ -121,61 +117,41 @@
                             </td>
 
                             <td>
-                                👤 {{ $sale->user->name }}
+                                {{ $sale->user->name }}
                             </td>
 
-                            <td class="fw-bold text-success">
+                            <td class="fw-semibold">
                                 Rp {{ number_format($sale->total_pembayaran,0,',','.') }}
                             </td>
 
                             <td class="text-center">
 
-                                @if($sale->metode_pembayaran == 'CASH')
-                                <span class="badge bg-success">
-                                    CASH
-                                </span>
-                                @else
-                                <span class="badge bg-info">
+                                <span class="badge border border-dark text-dark rounded-pill px-3">
                                     {{ $sale->metode_pembayaran }}
                                 </span>
-                                @endif
 
                             </td>
 
                             <td class="text-center">
 
-                                @if($sale->status == 'COMPLETED')
-
-                                <span class="badge bg-success">
-                                    COMPLETED
+                                <span class="badge bg-dark rounded-pill px-3">
+                                    {{ $sale->status }}
                                 </span>
-
-                                @else
-
-                                <span class="badge bg-warning text-dark">
-                                    OPEN
-                                </span>
-
-                                @endif
 
                             </td>
 
-                            <td class="text-nowrap">
+                            <td class="text-center">
 
                                 <a href="{{ route('penjualan.show',$sale) }}"
-                                    class="btn btn-info btn-sm">
-
+                                    class="btn btn-outline-dark btn-sm">
                                     Detail
-
                                 </a>
 
                                 @can('view', $sale)
 
                                 <a href="{{ route('penjualan.edit',$sale) }}"
-                                    class="btn btn-warning btn-sm">
-
+                                    class="btn btn-outline-dark btn-sm">
                                     Edit
-
                                 </a>
 
                                 @endcan
@@ -191,7 +167,8 @@
                                     @method('DELETE')
 
                                     <button
-                                        class="btn btn-danger btn-sm"
+                                        type="submit"
+                                        class="btn btn-dark btn-sm"
                                         onclick="return confirm('Apakah yakin ingin menghapus transaksi ini?')">
 
                                         Hapus
@@ -211,7 +188,7 @@
                         <tr>
 
                             <td colspan="7"
-                                class="text-center py-4 text-muted">
+                                class="text-center text-muted py-5">
 
                                 Belum ada data penjualan.
 
@@ -229,7 +206,7 @@
 
         </div>
 
-        <div class="card-footer bg-white">
+        <div class="card-footer bg-white border-0">
 
             {{ $sales->links() }}
 
@@ -240,3 +217,4 @@
 </div>
 
 @endsection
+

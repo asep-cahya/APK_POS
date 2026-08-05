@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('title', 'Produk')
@@ -6,64 +7,84 @@
 
 @include('layouts.navbar')
 
-<div class="container mt-4">
+<div class="container py-5">
 
     <!-- Header -->
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-5">
+
         <div>
-            <h2 class="fw-bold text-primary">📦 Manajemen Produk</h2>
-            <p class="text-muted mb-0">Kelola seluruh data produk.</p>
+            <h2 class="fw-bold mb-1">
+                Manajemen Produk
+            </h2>
+
+            <p class="text-muted mb-0">
+                Kelola seluruh data produk.
+            </p>
         </div>
 
-        <a href="{{ route('produk.create') }}" class="btn btn-primary shadow-sm">
-            + Tambah Produk
+        <a href="{{ route('produk.create') }}"
+            class="btn btn-dark rounded-3 px-4">
+            Tambah Produk
         </a>
+
     </div>
 
     <!-- Search -->
-    <div class="card shadow-sm border-0 mb-4">
+    <div class="card border-0 shadow-sm rounded-4 mb-4">
+
         <div class="card-body">
+
             <form action="{{ route('produk.index') }}" method="GET">
+
                 <div class="input-group">
+
                     <input
                         type="text"
                         name="search"
                         value="{{ request('search') }}"
                         class="form-control"
-                        placeholder="Cari nama produk...">
+                        placeholder="Cari nama produk">
 
-                    <button class="btn btn-primary">
-                        🔍 Search
+                    <button class="btn btn-dark">
+                        Cari
                     </button>
+
                 </div>
+
             </form>
+
         </div>
+
     </div>
 
     <!-- Table -->
-    <div class="card shadow border-0">
-
-        <div class="card-header bg-primary text-white">
-            <h5 class="mb-0">Daftar Produk</h5>
-        </div>
+    <div class="card border-0 shadow-sm rounded-4">
 
         <div class="card-body">
 
+            <h5 class="fw-bold mb-4">
+                Daftar Produk
+            </h5>
+
             <div class="table-responsive">
 
-                <table class="table table-hover align-middle">
+                <table class="table align-middle">
 
                     <thead class="table-light">
-                        <tr class="text-center">
-                            <th>No</th>
+
+                        <tr>
+
+                            <th width="60" class="text-center">No</th>
                             <th>User</th>
-                            <th>Foto</th>
+                            <th class="text-center">Foto</th>
                             <th>Nama Produk</th>
                             <th>Harga Beli</th>
                             <th>Harga Jual</th>
-                            <th>Stok</th>
-                            <th width="220">Aksi</th>
+                            <th class="text-center">Stok</th>
+                            <th class="text-center" width="220">Aksi</th>
+
                         </tr>
+
                     </thead>
 
                     <tbody>
@@ -76,22 +97,28 @@
                                 {{ $products->firstItem() + $loop->index }}
                             </td>
 
-                            <td>{{ $product->user->name }}</td>
+                            <td>
+                                {{ $product->user->name }}
+                            </td>
 
                             <td class="text-center">
 
                                 @if($product->foto)
-                                <img
-                                    src="{{ asset('storage/' . $product->foto) }}"
-                                    width="70"
-                                    height="70"
-                                    class="rounded shadow-sm"
-                                    style="object-fit:cover;"
-                                    alt="{{ $product->nama }}">
+
+                                    <img
+                                        src="{{ asset('storage/' . $product->foto) }}"
+                                        width="70"
+                                        height="70"
+                                        class="rounded-3 border"
+                                        style="object-fit: cover;"
+                                        alt="{{ $product->nama }}">
+
                                 @else
-                                <span class="text-muted">
-                                    Tidak ada foto
-                                </span>
+
+                                    <small class="text-muted">
+                                        Tidak ada foto
+                                    </small>
+
                                 @endif
 
                             </td>
@@ -104,43 +131,27 @@
                                 Rp {{ number_format($product->harga_beli,0,',','.') }}
                             </td>
 
-                            <td class="text-success fw-bold">
+                            <td>
                                 Rp {{ number_format($product->harga_jual,0,',','.') }}
                             </td>
 
-                            <td>
+                            <td class="text-center">
 
-                                @if($product->stok > 20)
-
-                                <span class="badge bg-success">
+                                <span class="badge border border-dark text-dark rounded-pill px-3">
                                     {{ $product->stok }}
                                 </span>
-
-                                @elseif($product->stok > 5)
-
-                                <span class="badge bg-warning text-dark">
-                                    {{ $product->stok }}
-                                </span>
-
-                                @else
-
-                                <span class="badge bg-danger">
-                                    {{ $product->stok }}
-                                </span>
-
-                                @endif
 
                             </td>
 
-                            <td class="text-nowrap">
+                            <td class="text-center">
 
                                 <a href="{{ route('produk.show', $product) }}"
-                                    class="btn btn-info btn-sm">
+                                    class="btn btn-outline-dark btn-sm">
                                     Detail
                                 </a>
 
                                 <a href="{{ route('produk.edit', $product) }}"
-                                    class="btn btn-warning btn-sm">
+                                    class="btn btn-outline-dark btn-sm">
                                     Edit
                                 </a>
 
@@ -153,7 +164,8 @@
                                     @method('DELETE')
 
                                     <button
-                                        class="btn btn-danger btn-sm"
+                                        type="submit"
+                                        class="btn btn-dark btn-sm"
                                         onclick="return confirm('Apakah yakin ingin menghapus produk ini?')">
 
                                         Hapus
@@ -170,8 +182,11 @@
 
                         <tr>
 
-                            <td colspan="8" class="text-center py-4 text-muted">
+                            <td colspan="8"
+                                class="text-center text-muted py-5">
+
                                 Belum ada data produk.
+
                             </td>
 
                         </tr>
@@ -186,8 +201,10 @@
 
         </div>
 
-        <div class="card-footer bg-white">
+        <div class="card-footer bg-white border-0">
+
             {{ $products->links() }}
+
         </div>
 
     </div>
@@ -195,3 +212,4 @@
 </div>
 
 @endsection
+

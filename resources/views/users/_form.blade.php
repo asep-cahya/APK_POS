@@ -1,21 +1,21 @@
+
 @csrf
 
-<div class="card shadow border-0">
+<div class="card border-0 shadow-sm rounded-4">
 
-    <div class="card-header bg-primary text-white">
-        <h4 class="mb-0">
-            👤 Data User
+    <div class="card-body p-4">
+
+        <h4 class="fw-bold mb-4">
+            Data User
         </h4>
-    </div>
-
-    <div class="card-body">
 
         <div class="row">
 
             <!-- Nama -->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-4">
+
                 <label class="form-label fw-semibold">
-                    Nama <span class="text-danger">*</span>
+                    Nama
                 </label>
 
                 <input
@@ -30,12 +30,14 @@
                     {{ $message }}
                 </div>
                 @enderror
+
             </div>
 
             <!-- Email -->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-4">
+
                 <label class="form-label fw-semibold">
-                    Email <span class="text-danger">*</span>
+                    Email
                 </label>
 
                 <input
@@ -50,15 +52,19 @@
                     {{ $message }}
                 </div>
                 @enderror
+
             </div>
 
             <!-- Password -->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-4">
+
                 <label class="form-label fw-semibold">
                     Password
 
                     @isset($user)
-                    <small class="text-muted">(Kosongkan jika tidak diubah)</small>
+                        <small class="text-muted">
+                            (Kosongkan jika tidak diubah)
+                        </small>
                     @endisset
 
                 </label>
@@ -74,12 +80,14 @@
                     {{ $message }}
                 </div>
                 @enderror
+
             </div>
 
             <!-- Role -->
-            <div class="col-md-6 mb-3">
+            <div class="col-md-6 mb-4">
+
                 <label class="form-label fw-semibold">
-                    Role <span class="text-danger">*</span>
+                    Role
                 </label>
 
                 <select
@@ -87,18 +95,18 @@
                     class="form-select @error('role_id') is-invalid @enderror">
 
                     <option value="">
-                        -- Pilih Role --
+                        Pilih Role
                     </option>
 
                     @foreach($roles as $role)
 
-                    <option
-                        value="{{ $role->id }}"
-                        @selected(old('role_id', $user->role_id ?? '') == $role->id)>
+                        <option
+                            value="{{ $role->id }}"
+                            @selected(old('role_id', $user->role_id ?? '') == $role->id)>
 
-                        {{ ucfirst($role->name) }}
+                            {{ ucfirst($role->name) }}
 
-                    </option>
+                        </option>
 
                     @endforeach
 
@@ -116,23 +124,24 @@
 
     </div>
 
-    <div class="card-footer bg-white text-end">
+    <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2">
 
         <a href="{{ route('admin.users') }}"
-            class="btn btn-secondary">
+            class="btn btn-outline-dark">
 
-            ← Kembali
+            Kembali
 
         </a>
 
         <button
             type="submit"
-            class="btn btn-success">
+            class="btn btn-dark">
 
-            💾 Simpan
+            Simpan
 
         </button>
 
     </div>
 
 </div>
+

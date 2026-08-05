@@ -1,69 +1,77 @@
+
 @csrf
 
-<div class="card shadow-lg border-0 rounded-4">
-
-    <div class="card-header bg-primary text-white rounded-top-4 py-3">
-        <h4 class="mb-0 fw-bold">
-            📦 Form Produk
-        </h4>
-    </div>
+<div class="card border-0 shadow-sm rounded-4">
 
     <div class="card-body p-4">
 
-        <div class="row">
+        <h4 class="fw-bold mb-4">
+            Form Produk
+        </h4>
+
+        <div class="row g-4">
 
             <!-- Foto -->
             <div class="col-lg-4">
 
-                <div class="card border-0 shadow-sm">
+                <div class="border rounded-4 p-4 text-center h-100">
 
-                    <div class="card-body text-center">
+                    <h6 class="fw-bold mb-4">
+                        Foto Produk
+                    </h6>
 
-                        <h6 class="fw-bold mb-3">
-                            Foto Produk
-                        </h6>
 
-                        @if (!empty($produk->foto))
+                    @if (!empty($produk->foto))
 
-                        <img src="{{ asset('storage/' . $produk->foto) }}"
-                            class="img-fluid rounded shadow mb-3"
-                            style="max-height:220px;">
+                    <img
+                        src="{{ asset('storage/' . $produk->foto) }}"
+                        class="img-fluid rounded-3 border mb-3"
+                        style="max-height:220px;">
 
-                        @endif
+                    @endif
 
-                        <img
-                            id="preview"
-                            class="img-fluid rounded shadow mb-3"
-                            style="display:none;max-height:220px;">
 
-                        <input
-                            type="file"
-                            name="foto"
-                            onchange="previewImage(this)"
-                            class="form-control @error('foto') is-invalid @enderror">
+                    <img
+                        id="preview"
+                        class="img-fluid rounded-3 border mb-3"
+                        style="display:none;max-height:220px;">
 
-                        @error('foto')
-                        <div class="invalid-feedback d-block">
-                            {{ $message }}
-                        </div>
-                        @enderror
 
+                    <input
+                        type="file"
+                        name="foto"
+                        onchange="previewImage(this)"
+                        class="form-control @error('foto') is-invalid @enderror">
+
+
+                    @error('foto')
+
+                    <div class="invalid-feedback d-block">
+                        {{ $message }}
                     </div>
+
+                    @enderror
+
 
                 </div>
 
             </div>
 
+
             <!-- Form -->
             <div class="col-lg-8">
 
+
                 <div class="row">
 
-                    <div class="col-md-12 mb-3">
+
+                    <!-- Nama -->
+                    <div class="col-md-12 mb-4">
 
                         <label class="form-label fw-semibold">
                             Nama Produk
                         </label>
+
 
                         <input
                             type="text"
@@ -72,25 +80,33 @@
                             value="{{ old('name', $produk->nama ?? '') }}"
                             placeholder="Masukkan nama produk">
 
+
                         @error('name')
+
                         <div class="invalid-feedback">
                             {{ $message }}
                         </div>
+
                         @enderror
 
                     </div>
 
-                    <div class="col-md-6 mb-3">
+
+
+                    <!-- Harga Beli -->
+                    <div class="col-md-6 mb-4">
 
                         <label class="form-label fw-semibold">
                             Harga Beli
                         </label>
 
+
                         <div class="input-group">
 
-                            <span class="input-group-text">
+                            <span class="input-group-text bg-white">
                                 Rp
                             </span>
+
 
                             <input
                                 type="number"
@@ -98,27 +114,38 @@
                                 class="form-control @error('purchase_price') is-invalid @enderror"
                                 value="{{ old('purchase_price', $produk->harga_beli ?? '') }}">
 
+
                         </div>
 
+
                         @error('purchase_price')
-                        <div class="invalid-feedback d-block">
+
+                        <div class="text-danger small mt-1">
                             {{ $message }}
                         </div>
+
                         @enderror
+
 
                     </div>
 
-                    <div class="col-md-6 mb-3">
+
+
+                    <!-- Harga Jual -->
+                    <div class="col-md-6 mb-4">
+
 
                         <label class="form-label fw-semibold">
                             Harga Jual
                         </label>
 
+
                         <div class="input-group">
 
-                            <span class="input-group-text">
+                            <span class="input-group-text bg-white">
                                 Rp
                             </span>
+
 
                             <input
                                 type="number"
@@ -126,21 +153,32 @@
                                 class="form-control @error('selling_price') is-invalid @enderror"
                                 value="{{ old('selling_price', $produk->harga_jual ?? '') }}">
 
+
                         </div>
 
+
                         @error('selling_price')
-                        <div class="invalid-feedback d-block">
+
+                        <div class="text-danger small mt-1">
                             {{ $message }}
                         </div>
+
                         @enderror
+
 
                     </div>
 
-                    <div class="col-md-12 mb-3">
+
+
+
+                    <!-- Stok -->
+                    <div class="col-md-12 mb-4">
+
 
                         <label class="form-label fw-semibold">
                             Jumlah Stok
                         </label>
+
 
                         <input
                             type="number"
@@ -149,54 +187,79 @@
                             value="{{ old('stok', $produk->stok ?? '') }}"
                             placeholder="Masukkan jumlah stok">
 
-                        @error('stock')
-                        <div class="invalid-feedback d-block">
+
+                        @error('stok')
+
+                        <div class="invalid-feedback">
                             {{ $message }}
                         </div>
+
                         @enderror
+
 
                     </div>
 
+
                 </div>
+
 
             </div>
 
+
         </div>
+
 
     </div>
 
-    <div class="card-footer bg-light d-flex justify-content-end gap-2 py-3">
+
+
+    <!-- Action -->
+
+    <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2 p-4">
+
 
         <a href="{{ route('produk.index') }}"
-            class="btn btn-outline-secondary">
+            class="btn btn-outline-dark">
 
-            ← Kembali
+            Kembali
 
         </a>
 
-        <button type="submit"
-            class="btn btn-success">
 
-            💾 Simpan Produk
+        <button
+            type="submit"
+            class="btn btn-dark">
+
+            Simpan Produk
 
         </button>
 
+
     </div>
+
 
 </div>
 
+
+
 <script>
-    function previewImage(input) {
 
-        const preview = document.getElementById('preview');
-        const file = input.files[0];
+function previewImage(input) {
 
-        if (file) {
+    const preview = document.getElementById('preview');
 
-            preview.src = URL.createObjectURL(file);
-            preview.style.display = 'block';
+    const file = input.files[0];
 
-        }
+
+    if(file){
+
+        preview.src = URL.createObjectURL(file);
+
+        preview.style.display = 'block';
 
     }
+
+}
+
 </script>
+
