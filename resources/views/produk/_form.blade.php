@@ -1,4 +1,3 @@
-
 @csrf
 
 <div class="card border-0 shadow-sm rounded-4">
@@ -20,22 +19,19 @@
                         Foto Produk
                     </h6>
 
-
                     @if (!empty($produk->foto))
 
-                    <img
-                        src="{{ asset('storage/' . $produk->foto) }}"
-                        class="img-fluid rounded-3 border mb-3"
-                        style="max-height:220px;">
+                        <img
+                            src="{{ asset('storage/' . $produk->foto) }}"
+                            class="img-fluid rounded-3 border mb-3"
+                            style="max-height:220px;">
 
                     @endif
-
 
                     <img
                         id="preview"
                         class="img-fluid rounded-3 border mb-3"
                         style="display:none;max-height:220px;">
-
 
                     <input
                         type="file"
@@ -43,15 +39,13 @@
                         onchange="previewImage(this)"
                         class="form-control @error('foto') is-invalid @enderror">
 
-
                     @error('foto')
 
-                    <div class="invalid-feedback d-block">
-                        {{ $message }}
-                    </div>
+                        <div class="invalid-feedback d-block">
+                            {{ $message }}
+                        </div>
 
                     @enderror
-
 
                 </div>
 
@@ -61,9 +55,7 @@
             <!-- Form -->
             <div class="col-lg-8">
 
-
                 <div class="row">
-
 
                     <!-- Nama -->
                     <div class="col-md-12 mb-4">
@@ -72,7 +64,6 @@
                             Nama Produk
                         </label>
 
-
                         <input
                             type="text"
                             name="name"
@@ -80,17 +71,55 @@
                             value="{{ old('name', $produk->nama ?? '') }}"
                             placeholder="Masukkan nama produk">
 
-
                         @error('name')
 
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
 
                         @enderror
 
                     </div>
 
+
+                    <!-- JENIS PRODUK -->
+                    <div class="col-md-12 mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Jenis Produk
+                        </label>
+
+                        <select
+                            name="jenis_id"
+                            class="form-select @error('jenis_id') is-invalid @enderror">
+
+                            <option value="">
+                                -- Pilih Jenis Produk --
+                            </option>
+
+                            @foreach($jenis as $item)
+
+                                <option
+                                    value="{{ $item->id }}"
+                                    {{ old('jenis_id', $produk->jenis_id ?? '') == $item->id ? 'selected' : '' }}>
+
+                                    {{ $item->nama_jenis }}
+
+                                </option>
+
+                            @endforeach
+
+                        </select>
+
+                        @error('jenis_id')
+
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
+
+                        @enderror
+
+                    </div>
 
 
                     <!-- Harga Beli -->
@@ -100,13 +129,11 @@
                             Harga Beli
                         </label>
 
-
                         <div class="input-group">
 
                             <span class="input-group-text bg-white">
                                 Rp
                             </span>
-
 
                             <input
                                 type="number"
@@ -114,31 +141,25 @@
                                 class="form-control @error('purchase_price') is-invalid @enderror"
                                 value="{{ old('purchase_price', $produk->harga_beli ?? '') }}">
 
-
                         </div>
-
 
                         @error('purchase_price')
 
-                        <div class="text-danger small mt-1">
-                            {{ $message }}
-                        </div>
+                            <div class="text-danger small mt-1">
+                                {{ $message }}
+                            </div>
 
                         @enderror
 
-
                     </div>
-
 
 
                     <!-- Harga Jual -->
                     <div class="col-md-6 mb-4">
 
-
                         <label class="form-label fw-semibold">
                             Harga Jual
                         </label>
-
 
                         <div class="input-group">
 
@@ -146,39 +167,31 @@
                                 Rp
                             </span>
 
-
                             <input
                                 type="number"
                                 name="selling_price"
                                 class="form-control @error('selling_price') is-invalid @enderror"
                                 value="{{ old('selling_price', $produk->harga_jual ?? '') }}">
 
-
                         </div>
-
 
                         @error('selling_price')
 
-                        <div class="text-danger small mt-1">
-                            {{ $message }}
-                        </div>
+                            <div class="text-danger small mt-1">
+                                {{ $message }}
+                            </div>
 
                         @enderror
 
-
                     </div>
-
-
 
 
                     <!-- Stok -->
                     <div class="col-md-12 mb-4">
 
-
                         <label class="form-label fw-semibold">
                             Jumlah Stok
                         </label>
-
 
                         <input
                             type="number"
@@ -187,36 +200,28 @@
                             value="{{ old('stok', $produk->stok ?? '') }}"
                             placeholder="Masukkan jumlah stok">
 
-
                         @error('stok')
 
-                        <div class="invalid-feedback">
-                            {{ $message }}
-                        </div>
+                            <div class="invalid-feedback">
+                                {{ $message }}
+                            </div>
 
                         @enderror
 
-
                     </div>
-
 
                 </div>
 
-
             </div>
-
 
         </div>
 
-
     </div>
-
 
 
     <!-- Action -->
 
     <div class="card-footer bg-white border-0 d-flex justify-content-end gap-2 p-4">
-
 
         <a href="{{ route('produk.index') }}"
             class="btn btn-outline-dark">
@@ -224,7 +229,6 @@
             Kembali
 
         </a>
-
 
         <button
             type="submit"
@@ -234,12 +238,9 @@
 
         </button>
 
-
     </div>
 
-
 </div>
-
 
 
 <script>
@@ -249,7 +250,6 @@ function previewImage(input) {
     const preview = document.getElementById('preview');
 
     const file = input.files[0];
-
 
     if(file){
 
@@ -262,4 +262,3 @@ function previewImage(input) {
 }
 
 </script>
-

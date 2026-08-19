@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Produk')
@@ -29,6 +28,7 @@
 
     </div>
 
+
     <!-- Search -->
     <div class="card border-0 shadow-sm rounded-4 mb-4">
 
@@ -57,6 +57,7 @@
 
     </div>
 
+
     <!-- Table -->
     <div class="card border-0 shadow-sm rounded-4">
 
@@ -74,18 +75,47 @@
 
                         <tr>
 
-                            <th width="60" class="text-center">No</th>
-                            <th>User</th>
-                            <th class="text-center">Foto</th>
-                            <th>Nama Produk</th>
-                            <th>Harga Beli</th>
-                            <th>Harga Jual</th>
-                            <th class="text-center">Stok</th>
-                            <th class="text-center" width="220">Aksi</th>
+                            <th width="60" class="text-center">
+                                No
+                            </th>
+
+                            <th>
+                                User
+                            </th>
+
+                            <th class="text-center">
+                                Foto
+                            </th>
+
+                            <th>
+                                Nama Produk
+                            </th>
+
+                            {{-- JENIS BARU --}}
+                            <th>
+                                Jenis
+                            </th>
+
+                            <th>
+                                Harga Beli
+                            </th>
+
+                            <th>
+                                Harga Jual
+                            </th>
+
+                            <th class="text-center">
+                                Stok
+                            </th>
+
+                            <th class="text-center" width="220">
+                                Aksi
+                            </th>
 
                         </tr>
 
                     </thead>
+
 
                     <tbody>
 
@@ -93,14 +123,23 @@
 
                         <tr>
 
+                            {{-- No --}}
                             <td class="text-center">
+
                                 {{ $products->firstItem() + $loop->index }}
+
                             </td>
 
+
+                            {{-- User --}}
                             <td>
+
                                 {{ $product->user->name }}
+
                             </td>
 
+
+                            {{-- Foto --}}
                             <td class="text-center">
 
                                 @if($product->foto)
@@ -123,37 +162,83 @@
 
                             </td>
 
+
+                            {{-- Nama Produk --}}
                             <td class="fw-semibold">
+
                                 {{ $product->nama }}
+
                             </td>
 
+
+                            {{-- JENIS BARU --}}
                             <td>
-                                Rp {{ number_format($product->harga_beli,0,',','.') }}
+
+                                @if($product->jenis)
+
+                                    <span class="badge bg-dark rounded-pill px-3">
+
+                                        {{ $product->jenis->nama_jenis }}
+
+                                    </span>
+
+                                @else
+
+                                    <span class="text-muted">
+                                        Belum ada jenis
+                                    </span>
+
+                                @endif
+
                             </td>
 
+
+                            {{-- Harga Beli --}}
                             <td>
-                                Rp {{ number_format($product->harga_jual,0,',','.') }}
+
+                                Rp {{ number_format($product->harga_beli, 0, ',', '.') }}
+
                             </td>
 
+
+                            {{-- Harga Jual --}}
+                            <td>
+
+                                Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
+
+                            </td>
+
+
+                            {{-- Stok --}}
                             <td class="text-center">
 
                                 <span class="badge border border-dark text-dark rounded-pill px-3">
+
                                     {{ $product->stok }}
+
                                 </span>
 
                             </td>
 
+
+                            {{-- Aksi --}}
                             <td class="text-center">
 
                                 <a href="{{ route('produk.show', $product) }}"
                                     class="btn btn-outline-dark btn-sm">
+
                                     Detail
+
                                 </a>
+
 
                                 <a href="{{ route('produk.edit', $product) }}"
                                     class="btn btn-outline-dark btn-sm">
+
                                     Edit
+
                                 </a>
+
 
                                 <form
                                     action="{{ route('produk.destroy', $product) }}"
@@ -161,6 +246,7 @@
                                     class="d-inline">
 
                                     @csrf
+
                                     @method('DELETE')
 
                                     <button
@@ -178,11 +264,12 @@
 
                         </tr>
 
+
                         @empty
 
                         <tr>
 
-                            <td colspan="8"
+                            <td colspan="9"
                                 class="text-center text-muted py-5">
 
                                 Belum ada data produk.
@@ -201,6 +288,8 @@
 
         </div>
 
+
+        <!-- Pagination -->
         <div class="card-footer bg-white border-0">
 
             {{ $products->links() }}
@@ -212,4 +301,3 @@
 </div>
 
 @endsection
-

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Jenis;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
@@ -13,6 +14,7 @@ class Produk extends Model
 
     protected $fillable = [
         'user_id',
+        'jenis_id',
         'foto',
         'nama',
         'harga_jual',
@@ -28,5 +30,9 @@ class Produk extends Model
      public function ItemPenjualan()
     {
         return $this->hasMany(ItemPenjualan::class, 'produk_id');
+    }
+     public function jenis()
+    {
+        return $this->belongsTo(Jenis::class, 'jenis_id');
     }
 }
