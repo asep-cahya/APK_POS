@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('title', 'Dashboard')
@@ -8,30 +7,394 @@
 @include('layouts.navbar')
 
 
-<div class="container py-5">
+<style>
+
+/* ==================================================
+   DASHBOARD
+================================================== */
+
+.dashboard-wrapper {
+
+    margin-left: 250px;
+
+    min-height: 100vh;
+
+    background: #F3F4F6;
+
+    padding: 40px;
+
+}
+
+
+/* ==================================================
+   HEADER
+================================================== */
+
+.dashboard-header {
+
+    margin-bottom: 32px;
+
+}
+
+.dashboard-title {
+
+    color: #20242C;
+
+    font-size: 27px;
+
+    font-weight: 700;
+
+    margin-bottom: 6px;
+
+    letter-spacing: -0.5px;
+
+}
+
+.dashboard-date {
+
+    color: #8A929E;
+
+    font-size: 13px;
+
+}
+
+
+/* ==================================================
+   STATISTIK
+================================================== */
+
+.stat-card {
+
+    position: relative;
+
+    background: #FFFFFF;
+
+    border: 1px solid #E5E7EB;
+
+    border-radius: 14px;
+
+    min-height: 130px;
+
+    padding: 22px;
+
+    transition: .2s ease;
+
+}
+
+.stat-card:hover {
+
+    transform: translateY(-2px);
+
+    box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+}
+
+
+.stat-label {
+
+    color: #8A929E;
+
+    font-size: 12px;
+
+    margin-bottom: 9px;
+
+}
+
+
+.stat-value {
+
+    color: #20242C;
+
+    font-size: 21px;
+
+    font-weight: 700;
+
+}
+
+.stat-value.green {
+
+    color: #10B981;
+
+}
+
+
+/* ==================================================
+   ICON STATISTIK
+================================================== */
+
+.stat-icon {
+
+    position: absolute;
+
+    top: 20px;
+
+    right: 20px;
+
+    width: 38px;
+
+    height: 38px;
+
+    border-radius: 10px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    background: #F1F3F5;
+
+    color: #59616D;
+
+    font-size: 16px;
+
+}
+
+
+.stat-icon.green {
+
+    background: #ECFDF5;
+
+    color: #10B981;
+
+}
+
+
+/* ==================================================
+   SECTION CARD
+================================================== */
+
+.dashboard-card {
+
+    background: #FFFFFF;
+
+    border: 1px solid #E5E7EB;
+
+    border-radius: 14px;
+
+    overflow: hidden;
+
+    height: 100%;
+
+}
+
+
+.dashboard-card-header {
+
+    padding: 20px 22px;
+
+    border-bottom: 1px solid #EEF0F2;
+
+}
+
+
+.dashboard-card-title {
+
+    margin: 0;
+
+    color: #20242C;
+
+    font-size: 15px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==================================================
+   TABLE
+================================================== */
+
+.dashboard-table {
+
+    margin-bottom: 0;
+
+}
+
+
+.dashboard-table thead th {
+
+    background: #F8F9FA;
+
+    color: #8A929E;
+
+    border-bottom: 1px solid #E5E7EB;
+
+    padding: 12px 20px;
+
+    font-size: 10px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .5px;
+
+}
+
+
+.dashboard-table tbody td {
+
+    padding: 14px 20px;
+
+    color: #4B5563;
+
+    border-color: #F0F1F3;
+
+    font-size: 13px;
+
+}
+
+
+.dashboard-table tbody tr:hover {
+
+    background: #FAFBFC;
+
+}
+
+
+.product-name {
+
+    color: #20242C;
+
+    font-weight: 600;
+
+}
+
+
+/* ==================================================
+   BADGE STOK
+================================================== */
+
+.stock-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 38px;
+
+    padding: 5px 10px;
+
+    border-radius: 7px;
+
+    background: #F3F4F6;
+
+    color: #374151;
+
+    font-size: 11px;
+
+    font-weight: 600;
+
+}
+
+
+/* ==================================================
+   BADGE TERJUAL
+================================================== */
+
+.sold-badge {
+
+    display: inline-flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    min-width: 40px;
+
+    padding: 5px 11px;
+
+    border-radius: 7px;
+
+    background: #ECFDF5;
+
+    color: #047857;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+}
+
+
+/* ==================================================
+   EMPTY
+================================================== */
+
+.empty-state {
+
+    padding: 35px 20px !important;
+
+    color: #9AA1AB !important;
+
+    text-align: center;
+
+    font-size: 12px !important;
+
+}
+
+
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
+@media (max-width: 992px) {
+
+    .dashboard-wrapper {
+
+        margin-left: 250px;
+
+        padding: 30px;
+
+    }
+
+}
+
+
+@media (max-width: 768px) {
+
+    .dashboard-wrapper {
+
+        margin-left: 210px;
+
+        padding: 25px 18px;
+
+    }
+
+    .dashboard-title {
+
+        font-size: 23px;
+
+    }
+
+}
+
+</style>
+
+
+<div class="dashboard-wrapper">
 
 
     <!-- Header -->
 
-    <div class="mb-5">
+    <div class="dashboard-header">
 
-        <h2 class="fw-bold mb-2"
-            style="color:#111827;">
+        <h2 class="dashboard-title">
 
             Dashboard POS
 
         </h2>
 
-
-        <p class="text-muted mb-0">
+        <p class="dashboard-date">
 
             {{ $tanggalHariIni->translatedFormat('l, d F Y') }}
 
         </p>
 
-
     </div>
-
 
 
 
@@ -40,28 +403,27 @@
     <div class="row g-4 mb-5">
 
 
+        <!-- Total Penjualan -->
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="stat-card">
 
-                <div class="card-body p-4">
+                <div class="stat-icon green">
 
+                    <i class="bi bi-cash-stack"></i>
 
-                    <p class="text-muted mb-2">
+                </div>
 
-                        Total Penjualan
+                <div class="stat-label">
 
-                    </p>
+                    Total Penjualan
 
+                </div>
 
-                    <h3 class="fw-bold mb-0"
-                        style="color:#10B981;">
+                <div class="stat-value green">
 
-                        Rp {{ number_format($ringkasan['total_penjualan'],0,',','.') }}
-
-                    </h3>
-
+                    Rp {{ number_format($ringkasan['total_penjualan'],0,',','.') }}
 
                 </div>
 
@@ -70,30 +432,27 @@
         </div>
 
 
-
-
+        <!-- Total Transaksi -->
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="stat-card">
 
-                <div class="card-body p-4">
+                <div class="stat-icon">
 
+                    <i class="bi bi-receipt"></i>
 
-                    <p class="text-muted mb-2">
+                </div>
 
-                        Total Transaksi
+                <div class="stat-label">
 
-                    </p>
+                    Total Transaksi
 
+                </div>
 
-                    <h3 class="fw-bold mb-0"
-                        style="color:#111827;">
+                <div class="stat-value">
 
-                        {{ $ringkasan['total_transaksi'] }}
-
-                    </h3>
-
+                    {{ $ringkasan['total_transaksi'] }}
 
                 </div>
 
@@ -102,30 +461,27 @@
         </div>
 
 
-
-
+        <!-- Cash -->
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="stat-card">
 
-                <div class="card-body p-4">
+                <div class="stat-icon">
 
+                    <i class="bi bi-wallet2"></i>
 
-                    <p class="text-muted mb-2">
+                </div>
 
-                        Pembayaran Cash
+                <div class="stat-label">
 
-                    </p>
+                    Pembayaran Cash
 
+                </div>
 
-                    <h3 class="fw-bold mb-0"
-                        style="color:#111827;">
+                <div class="stat-value">
 
-                        Rp {{ number_format($ringkasan['total_cash'],0,',','.') }}
-
-                    </h3>
-
+                    Rp {{ number_format($ringkasan['total_cash'],0,',','.') }}
 
                 </div>
 
@@ -134,430 +490,377 @@
         </div>
 
 
-
-
+        <!-- Non Tunai -->
 
         <div class="col-lg-3 col-md-6">
 
-            <div class="card border-0 shadow-sm rounded-4 h-100">
+            <div class="stat-card">
 
-                <div class="card-body p-4">
+                <div class="stat-icon">
 
+                    <i class="bi bi-credit-card"></i>
 
-                    <p class="text-muted mb-2">
+                </div>
 
-                        Pembayaran Non Tunai
+                <div class="stat-label">
 
-                    </p>
+                    Pembayaran Non Tunai
 
+                </div>
 
-                    <h3 class="fw-bold mb-0"
-                        style="color:#111827;">
+                <div class="stat-value">
 
-                        Rp {{ number_format($ringkasan['total_non_tunai'],0,',','.') }}
-
-                    </h3>
-
+                    Rp {{ number_format($ringkasan['total_non_tunai'],0,',','.') }}
 
                 </div>
 
             </div>
 
         </div>
-
 
 
     </div>
 
 
 
-
-
     <!-- Produk -->
 
-    <div class="row g-4 mb-5">
-
+    <div class="row g-4 mb-4">
 
 
         <!-- Stok Rendah -->
 
         <div class="col-lg-6">
 
-
-            <div class="card border-0 shadow-sm rounded-4 h-100">
-
-
-                <div class="card-body p-4">
+            <div class="dashboard-card">
 
 
-                    <h5 class="fw-bold mb-4">
+                <div class="dashboard-card-header">
+
+                    <h5 class="dashboard-card-title">
 
                         Produk Stok Rendah
 
                     </h5>
 
+                </div>
 
 
-                    <div class="table-responsive">
+                <div class="table-responsive">
 
+                    <table class="table dashboard-table align-middle">
 
-                        <table class="table align-middle">
-
-
-                            <thead class="table-light">
-
-
-                                <tr>
-
-                                    <th>No</th>
-                                    <th>Produk</th>
-                                    <th class="text-center">
-                                        Stok
-                                    </th>
-
-                                </tr>
-
-
-                            </thead>
-
-
-                            <tbody>
-
-
-                            @forelse($produkStokRendah as $index => $produk)
-
+                        <thead>
 
                             <tr>
 
+                                <th>No</th>
 
-                                <td>
-                                    {{ $produkStokRendah->firstItem()+$index }}
-                                </td>
+                                <th>Produk</th>
 
-
-                                <td class="fw-medium">
-                                    {{ $produk->nama }}
-                                </td>
-
-
-                                <td class="text-center">
-
-
-                                    <span class="badge rounded-pill px-3"
-                                        style="background:#111827;">
-
-                                        {{ $produk->stok }}
-
-                                    </span>
-
-
-                                </td>
-
+                                <th class="text-center">
+                                    Stok
+                                </th>
 
                             </tr>
 
-
-                            @empty
-
-
-                            <tr>
-
-                                <td colspan="3"
-                                    class="text-center text-muted py-4">
-
-                                    Tidak ada produk dengan stok rendah.
-
-                                </td>
-
-                            </tr>
+                        </thead>
 
 
-                            @endforelse
+                        <tbody>
 
 
-                            </tbody>
+                        @forelse($produkStokRendah as $index => $produk)
 
 
-                        </table>
+                        <tr>
+
+                            <td>
+
+                                {{ $produkStokRendah->firstItem()+$index }}
+
+                            </td>
 
 
-                    </div>
+                            <td class="product-name">
+
+                                {{ $produk->nama }}
+
+                            </td>
 
 
-                    {{ $produkStokRendah->links() }}
+                            <td class="text-center">
 
+                                <span class="stock-badge">
+
+                                    {{ $produk->stok }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        @empty
+
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="empty-state">
+
+                                Tidak ada produk dengan stok rendah.
+
+                            </td>
+
+                        </tr>
+
+
+                        @endforelse
+
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
 
+                {{ $produkStokRendah->links() }}
+
+
             </div>
 
-
         </div>
-
-
-
 
 
 
         <!-- Produk Habis -->
 
-
         <div class="col-lg-6">
 
-
-            <div class="card border-0 shadow-sm rounded-4 h-100">
-
-
-                <div class="card-body p-4">
+            <div class="dashboard-card">
 
 
-                    <h5 class="fw-bold mb-4">
+                <div class="dashboard-card-header">
+
+                    <h5 class="dashboard-card-title">
 
                         Produk Habis
 
                     </h5>
 
+                </div>
 
 
-                    <div class="table-responsive">
+                <div class="table-responsive">
 
+                    <table class="table dashboard-table align-middle">
 
-                        <table class="table align-middle">
-
-
-                            <thead class="table-light">
-
-
-                                <tr>
-
-                                    <th>No</th>
-                                    <th>Produk</th>
-                                    <th class="text-center">
-                                        Stok
-                                    </th>
-
-                                </tr>
-
-
-                            </thead>
-
-
-                            <tbody>
-
-
-                            @forelse($produkStokHabis as $index => $produk)
-
+                        <thead>
 
                             <tr>
 
+                                <th>No</th>
 
-                                <td>
-                                    {{ $produkStokHabis->firstItem()+$index }}
-                                </td>
+                                <th>Produk</th>
 
-
-                                <td class="fw-medium">
-                                    {{ $produk->nama }}
-                                </td>
-
-
-                                <td class="text-center">
-
-
-                                    <span class="badge rounded-pill px-3"
-                                        style="background:#111827;">
-
-                                        {{ $produk->stok }}
-
-                                    </span>
-
-
-                                </td>
-
+                                <th class="text-center">
+                                    Stok
+                                </th>
 
                             </tr>
 
-
-                            @empty
-
-
-                            <tr>
-
-                                <td colspan="3"
-                                    class="text-center text-muted py-4">
-
-                                    Tidak ada produk habis.
-
-                                </td>
-
-                            </tr>
+                        </thead>
 
 
-                            @endforelse
+                        <tbody>
 
 
-                            </tbody>
+                        @forelse($produkStokHabis as $index => $produk)
 
 
-                        </table>
+                        <tr>
+
+                            <td>
+
+                                {{ $produkStokHabis->firstItem()+$index }}
+
+                            </td>
 
 
-                    </div>
+                            <td class="product-name">
+
+                                {{ $produk->nama }}
+
+                            </td>
 
 
-                    {{ $produkStokHabis->links() }}
+                            <td class="text-center">
 
+                                <span class="stock-badge">
+
+                                    {{ $produk->stok }}
+
+                                </span>
+
+                            </td>
+
+                        </tr>
+
+
+                        @empty
+
+
+                        <tr>
+
+                            <td colspan="3"
+                                class="empty-state">
+
+                                Tidak ada produk habis.
+
+                            </td>
+
+                        </tr>
+
+
+                        @endforelse
+
+
+                        </tbody>
+
+                    </table>
 
                 </div>
 
 
+                {{ $produkStokHabis->links() }}
+
+
             </div>
 
-
         </div>
-
 
 
     </div>
 
 
 
+    <!-- Produk Terlaris -->
+
+    <div class="dashboard-card">
 
 
+        <div class="dashboard-card-header">
 
-
-    <!-- Best Seller -->
-
-
-    <div class="card border-0 shadow-sm rounded-4">
-
-
-        <div class="card-body p-4">
-
-
-            <h5 class="fw-bold mb-4">
+            <h5 class="dashboard-card-title">
 
                 Produk Terlaris
 
             </h5>
 
+        </div>
 
 
-            <div class="table-responsive">
+        <div class="table-responsive">
+
+            <table class="table dashboard-table align-middle">
 
 
-                <table class="table align-middle">
-
-
-                    <thead class="table-light">
-
-
-                        <tr>
-
-                            <th>No</th>
-                            <th>Produk</th>
-                            <th class="text-center">
-                                Stok
-                            </th>
-
-                            <th class="text-center">
-                                Terjual
-                            </th>
-
-
-                        </tr>
-
-
-                    </thead>
-
-
-
-                    <tbody>
-
-
-                    @forelse($produkTerlaris as $index => $produk)
-
+                <thead>
 
                     <tr>
 
+                        <th>No</th>
 
-                        <td>
-                            {{ $index+1 }}
-                        </td>
+                        <th>Produk</th>
 
+                        <th class="text-center">
+                            Stok
+                        </th>
 
-                        <td class="fw-medium">
-
-                            {{ $produk->nama }}
-
-                        </td>
-
-
-                        <td class="text-center">
-
-                            {{ $produk->stok }}
-
-                        </td>
-
-
-
-                        <td class="text-center">
-
-
-                            <span class="badge rounded-pill px-3"
-                                style="background:#10B981;">
-
-
-                                {{ $produk->total_terjual }}
-
-
-                            </span>
-
-
-                        </td>
-
-
+                        <th class="text-center">
+                            Terjual
+                        </th>
 
                     </tr>
 
-
-                    @empty
-
-
-                    <tr>
-
-                        <td colspan="4"
-                            class="text-center text-muted py-4">
-
-                            Belum ada data penjualan.
-
-                        </td>
-
-                    </tr>
+                </thead>
 
 
-                    @endforelse
+                <tbody>
 
 
-                    </tbody>
+                @forelse($produkTerlaris as $index => $produk)
 
 
-                </table>
+                <tr>
+
+                    <td>
+
+                        {{ $index+1 }}
+
+                    </td>
 
 
-            </div>
+                    <td class="product-name">
 
+                        {{ $produk->nama }}
+
+                    </td>
+
+
+                    <td class="text-center">
+
+                        {{ $produk->stok }}
+
+                    </td>
+
+
+                    <td class="text-center">
+
+                        <span class="sold-badge">
+
+                            {{ $produk->total_terjual }}
+
+                        </span>
+
+                    </td>
+
+                </tr>
+
+
+                @empty
+
+
+                <tr>
+
+                    <td colspan="4"
+                        class="empty-state">
+
+                        Belum ada data penjualan.
+
+                    </td>
+
+                </tr>
+
+
+                @endforelse
+
+
+                </tbody>
+
+
+            </table>
 
         </div>
 
 
     </div>
-
 
 
 </div>
 
 
 @endsection
-

@@ -4,15 +4,19 @@ namespace App\Http\Controllers;
 
 use App\Models\Jenis;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+
 
 class JenisController extends Controller
 {
     public function index()
-    {
-        $jenis = Jenis::latest()->get();
+{
+    $jenis = Jenis::with('creator')
+        ->latest()
+        ->get();
 
-        return view('jenis.index', compact('jenis'));
-    }
+    return view('jenis.index', compact('jenis'));
+}
 
     public function create()
     {
@@ -20,21 +24,23 @@ class JenisController extends Controller
     }
 
     public function store(Request $request)
-    {
-        $request->validate([
-            'nama_jenis' => 'required|string|max:255',
-            'keterangan' => 'nullable|string',
-        ]);
+{
+    $request->validate([
+        'nama_jenis' => 'required|string|max:255',
+        'keterangan' => 'nullable|string',
+    ]);
 
-        Jenis::create([
-            'nama_jenis' => $request->nama_jenis,
-            'keterangan' => $request->keterangan,
-        ]);
+    Jenis::create([
+        'nama_jenis' => $request->nama_jenis,
+        'keterangan' => $request->keterangan,
+        'created_by' => Auth::id(),
+    ]);
 
-        return redirect()
-            ->route('jenis.index')
-            ->with('success', 'Jenis berhasil ditambahkan.');
-    }
+    return redirect()
+        ->route('jenis.index')
+        ->with('success', 'Jenis berhasil ditambahkan.');
+}
+
 
     public function edit(Jenis $jeni)
     {
