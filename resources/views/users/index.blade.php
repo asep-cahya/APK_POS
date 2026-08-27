@@ -6,592 +6,392 @@
 
 @include('layouts.navbar')
 
-
 <style>
-
-/* ==================================================
-   USERS PAGE
-================================================== */
-
 .users-wrapper {
-
-    margin-left: 250px;
-
-    min-height: 100vh;
-
-    background: #F3F4F6;
-
-    padding: 40px;
-
+    width: 100%;
+    min-height: calc(100vh - 68px);
+    background: #f4f5f7;
+    padding: 28px 32px 40px;
 }
-
-
-/* ==================================================
-   HEADER
-================================================== */
 
 .users-header {
-
-    margin-bottom: 32px;
-
+    margin-bottom: 18px;
 }
 
+.users-header-inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
 
 .users-title {
-
-    color: #20242C;
-
-    font-size: 27px;
-
+    color: #20242c;
+    font-size: 24px;
     font-weight: 700;
-
-    margin-bottom: 6px;
-
-    letter-spacing: -0.5px;
-
+    margin: 0 0 4px;
+    letter-spacing: -0.4px;
 }
-
 
 .users-subtitle {
-
-    color: #8A929E;
-
-    font-size: 13px;
-
+    color: #8a929e;
+    font-size: 12px;
+    margin: 0;
 }
-
-
-/* ==================================================
-   BUTTON TAMBAH
-================================================== */
 
 .btn-add-user {
-
     display: inline-flex;
-
     align-items: center;
-
-    gap: 8px;
-
-    height: 42px;
-
-    padding: 0 18px;
-
-    background: #10B981;
-
-    border: 1px solid #10B981;
-
-    border-radius: 9px;
-
-    color: #FFFFFF;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
+    justify-content: center;
+    gap: 7px;
+    padding: 9px 15px;
+    background: #20242c;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
     text-decoration: none;
-
-    transition: all .2s ease;
-
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    transition: 0.2s;
 }
-
 
 .btn-add-user:hover {
-
-    background: #059669;
-
-    border-color: #059669;
-
-    color: #FFFFFF;
-
-    transform: translateY(-1px);
-
+    background: #10b981;
+    color: #fff;
 }
-
-
-/* ==================================================
-   SEARCH CARD
-================================================== */
 
 .search-card {
-
-    background: #FFFFFF;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 14px;
-
-    margin-bottom: 20px;
-
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 18px;
 }
-
 
 .search-card-body {
-
-    padding: 18px;
-
+    padding: 14px;
 }
-
 
 .search-form {
-
     display: flex;
-
-    gap: 10px;
-
+    gap: 8px;
+    width: 100%;
 }
-
 
 .search-input {
-
-    height: 42px;
-
-    border: 1px solid #E1E4E8;
-
-    border-radius: 9px;
-
-    color: #20242C;
-
-    font-size: 13px;
-
-    padding: 0 14px;
-
-    background: #FFFFFF;
-
-    outline: none;
-
+    height: 40px;
     flex: 1;
-
-    transition: all .2s ease;
-
+    min-width: 0;
+    border: 1px solid #e1e4e8;
+    border-radius: 8px;
+    color: #374151;
+    font-size: 12px;
+    padding: 0 13px;
+    background: #fff;
+    outline: none;
+    box-shadow: none !important;
+    transition: 0.2s;
 }
-
 
 .search-input:focus {
-
-    border-color: #10B981;
-
-    box-shadow: 0 0 0 3px rgba(16,185,129,.08);
-
+    border-color: #10b981;
 }
-
 
 .search-input::placeholder {
-
-    color: #A1A8B3;
-
+    color: #a8afb9;
 }
-
 
 .search-btn {
-
-    height: 42px;
-
-    padding: 0 20px;
-
-    background: #20242C;
-
-    border: 1px solid #20242C;
-
-    border-radius: 9px;
-
-    color: #FFFFFF;
-
+    height: 40px;
+    padding: 0 17px;
+    background: #20242c;
+    border: 1px solid #20242c;
+    border-radius: 8px;
+    color: #fff;
     font-size: 12px;
-
     font-weight: 600;
-
     cursor: pointer;
-
-    transition: all .2s ease;
-
+    transition: 0.2s;
 }
-
 
 .search-btn:hover {
-
-    background: #303741;
-
-    border-color: #303741;
-
+    background: #10b981;
+    border-color: #10b981;
 }
-
-
-/* ==================================================
-   TABLE CARD
-================================================== */
 
 .users-card {
-
-    background: #FFFFFF;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 14px;
-
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
     overflow: hidden;
-
 }
-
 
 .users-card-header {
-
-    padding: 20px 22px;
-
-    border-bottom: 1px solid #EEF0F2;
-
+    padding: 15px 18px;
+    border-bottom: 1px solid #eef0f2;
 }
-
 
 .users-card-title {
-
     margin: 0;
-
-    color: #20242C;
-
-    font-size: 15px;
-
+    color: #20242c;
+    font-size: 14px;
     font-weight: 700;
-
 }
 
-
-/* ==================================================
-   TABLE
-================================================== */
+.users-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 .users-table {
-
-    margin-bottom: 0;
-
+    width: 100%;
+    min-width: 700px;
+    margin: 0;
+    table-layout: auto;
 }
-
 
 .users-table thead th {
-
-    background: #F8F9FA;
-
-    color: #8A929E;
-
-    border-bottom: 1px solid #E5E7EB;
-
-    padding: 12px 20px;
-
+    background: #f8f9fa;
+    color: #8a929e;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 12px;
     font-size: 10px;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
-    letter-spacing: .5px;
-
+    letter-spacing: 0.4px;
+    white-space: nowrap;
 }
-
 
 .users-table tbody td {
-
-    padding: 15px 20px;
-
-    color: #4B5563;
-
-    border-color: #F0F1F3;
-
-    font-size: 13px;
-
+    padding: 11px 12px;
+    color: #4b5563;
+    border-color: #f0f1f3;
+    font-size: 12px;
+    vertical-align: middle;
+    white-space: nowrap;
 }
-
 
 .users-table tbody tr {
-
-    transition: background .15s ease;
-
+    transition: 0.2s;
 }
-
 
 .users-table tbody tr:hover {
-
-    background: #FAFBFC;
-
+    background: #fafbfc;
 }
 
+.nomor {
+    color: #8a929e;
+    font-size: 11px;
+}
 
 .user-name {
-
-    color: #20242C;
-
+    color: #20242c;
+    font-size: 12px;
     font-weight: 600;
-
 }
-
 
 .user-email {
-
-    color: #6B7280;
-
+    color: #6b7280;
+    font-size: 12px;
 }
-
-
-/* ==================================================
-   ROLE BADGE
-================================================== */
 
 .role-badge {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    min-width: 70px;
-
-    padding: 5px 11px;
-
-    border-radius: 7px;
-
+    min-width: 60px;
+    padding: 4px 9px;
+    border-radius: 6px;
     font-size: 10px;
-
     font-weight: 700;
-
+    white-space: nowrap;
 }
-
 
 .role-admin {
-
-    background: #ECFDF5;
-
+    background: #ecfdf5;
     color: #047857;
-
 }
-
 
 .role-kasir {
-
-    background: #F3F4F6;
-
-    color: #59616D;
-
+    background: #f3f4f6;
+    color: #59616d;
 }
 
+.action-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    white-space: nowrap;
+}
 
-/* ==================================================
-   ACTION BUTTON
-================================================== */
+.action-wrapper form {
+    margin: 0;
+}
+
+.action-btn {
+    width: 32px;
+    height: 32px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 7px;
+    border: 1px solid transparent;
+    text-decoration: none;
+    font-size: 13px;
+    transition: 0.2s;
+    cursor: pointer;
+}
 
 .action-edit {
-
-    display: inline-flex;
-
-    align-items: center;
-
-    justify-content: center;
-
-    height: 32px;
-
-    padding: 0 12px;
-
-    border: 1px solid #D9DDE2;
-
-    border-radius: 7px;
-
-    background: #FFFFFF;
-
-    color: #59616D;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    text-decoration: none;
-
-    transition: all .2s ease;
-
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #d1fae5;
 }
-
 
 .action-edit:hover {
-
-    background: #F3F4F6;
-
-    border-color: #C8CDD3;
-
-    color: #20242C;
-
+    background: #d1fae5;
+    color: #065f46;
 }
-
 
 .action-delete {
-
-    height: 32px;
-
-    padding: 0 12px;
-
-    border: 1px solid #D9DDE2;
-
-    border-radius: 7px;
-
-    background: #FFFFFF;
-
-    color: #59616D;
-
-    font-size: 11px;
-
-    font-weight: 600;
-
-    transition: all .2s ease;
-
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
 }
-
 
 .action-delete:hover {
-
-    background: #FEF2F2;
-
-    border-color: #FECACA;
-
-    color: #DC2626;
-
+    background: #fee2e2;
+    color: #991b1b;
 }
-
-
-/* ==================================================
-   EMPTY STATE
-================================================== */
 
 .empty-state {
-
-    padding: 40px 20px !important;
-
-    color: #9AA1AB !important;
-
+    padding: 35px 20px !important;
+    color: #9aa1ab !important;
     text-align: center;
-
     font-size: 12px !important;
-
 }
 
+.empty-icon {
+    width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px;
+    border-radius: 10px;
+    background: #f3f4f6;
+    color: #9aa1ab;
+    font-size: 19px;
+}
 
-/* ==================================================
-   PAGINATION
-================================================== */
+.empty-state strong {
+    display: block;
+    color: #374151;
+    font-size: 13px;
+}
+
+.empty-state p {
+    margin: 4px 0 13px;
+    color: #9aa1ab;
+    font-size: 11px;
+}
 
 .users-pagination {
-
-    padding: 16px 22px;
-
-    border-top: 1px solid #EEF0F2;
-
+    padding: 12px 18px;
+    background: #fff;
+    border-top: 1px solid #eef0f2;
 }
 
-
-/* ==================================================
-   RESPONSIVE
-================================================== */
-
-@media (max-width: 992px) {
-
-    .users-wrapper {
-
-        margin-left: 250px;
-
-        padding: 30px;
-
-    }
-
+.users-pagination .pagination {
+    margin: 0;
 }
-
 
 @media (max-width: 768px) {
-
     .users-wrapper {
-
-        margin-left: 220px;
-
-        padding: 25px 18px;
-
+        padding: 22px 16px 35px;
     }
 
-
-    .users-header {
-
-        align-items: flex-start !important;
-
-        gap: 20px;
-
+    .users-header-inner {
+        align-items: flex-start;
+        gap: 12px;
     }
-
 
     .users-title {
-
-        font-size: 23px;
-
+        font-size: 21px;
     }
 
-
-    .search-form {
-
-        flex-direction: column;
-
+    .btn-add-user {
+        padding: 9px 13px;
     }
-
-
-    .search-btn {
-
-        width: 100%;
-
-    }
-
 }
 
-</style>
+@media (max-width: 550px) {
+    .users-header-inner {
+        flex-direction: column;
+    }
 
+    .btn-add-user {
+        width: 100%;
+    }
+
+    .search-form {
+        flex-direction: column;
+    }
+
+    .search-btn {
+        width: 100%;
+    }
+
+    .search-card-body {
+        padding: 12px;
+    }
+}
+</style>
 
 <div class="users-wrapper">
 
-
     <!-- HEADER -->
+    <div class="users-header">
 
-    <div class="users-header d-flex justify-content-between align-items-center">
+        <div class="users-header-inner">
 
-        <div>
+            <div>
+                <h2 class="users-title">
+                    Manajemen User
+                </h2>
 
-            <h2 class="users-title">
+                <p class="users-subtitle">
+                    Kelola data pengguna aplikasi POS.
+                </p>
+            </div>
 
-                Manajemen User
+            <a
+                href="{{ route('admin.users.create') }}"
+                class="btn-add-user">
 
-            </h2>
+                <i class="bi bi-plus-lg"></i>
 
-            <p class="users-subtitle mb-0">
+                Tambah User
 
-                Kelola data pengguna aplikasi POS.
-
-            </p>
+            </a>
 
         </div>
 
-
-        <a href="{{ route('admin.users.create') }}"
-           class="btn-add-user">
-
-            <i class="bi bi-plus-lg"></i>
-
-            Tambah User
-
-        </a>
-
     </div>
 
-
-
     <!-- SEARCH -->
-
     <div class="search-card">
 
         <div class="search-card-body">
 
-            <form action="{{ route('admin.users') }}"
-                  method="GET"
-                  class="search-form">
+            <form
+                action="{{ route('admin.users') }}"
+                method="GET"
+                class="search-form">
 
                 <input
                     type="text"
@@ -600,8 +400,9 @@
                     class="search-input"
                     placeholder="Cari nama atau email">
 
-                <button type="submit"
-                        class="search-btn">
+                <button
+                    type="submit"
+                    class="search-btn">
 
                     <i class="bi bi-search me-1"></i>
 
@@ -615,25 +416,20 @@
 
     </div>
 
-
-
-    <!-- TABLE -->
-
+    <!-- TABLE CARD -->
     <div class="users-card">
 
-
+        <!-- CARD HEADER -->
         <div class="users-card-header">
 
             <h5 class="users-card-title">
-
                 Daftar User
-
             </h5>
 
         </div>
 
-
-        <div class="table-responsive">
+        <!-- TABLE -->
+        <div class="users-table-wrapper">
 
             <table class="table users-table align-middle">
 
@@ -641,7 +437,8 @@
 
                     <tr>
 
-                        <th width="60"
+                        <th
+                            width="60"
                             class="text-center">
 
                             No
@@ -649,24 +446,19 @@
                         </th>
 
                         <th>
-
                             Nama
-
                         </th>
 
                         <th>
-
                             Email
-
                         </th>
 
                         <th class="text-center">
-
                             Role
-
                         </th>
 
-                        <th width="170"
+                        <th
+                            width="120"
                             class="text-center">
 
                             Aksi
@@ -677,134 +469,136 @@
 
                 </thead>
 
-
                 <tbody>
-
 
                     @forelse($users as $user)
 
+                        <tr>
 
-                    <tr>
+                            <!-- NO -->
+                            <td class="text-center nomor">
 
+                                {{ $users->firstItem() + $loop->index }}
 
-                        <!-- NO -->
+                            </td>
 
-                        <td class="text-center">
+                            <!-- NAMA -->
+                            <td>
 
-                            {{ $users->firstItem() + $loop->index }}
-
-                        </td>
-
-
-                        <!-- NAMA -->
-
-                        <td class="user-name">
-
-                            {{ $user->name }}
-
-                        </td>
-
-
-                        <!-- EMAIL -->
-
-                        <td class="user-email">
-
-                            {{ $user->email }}
-
-                        </td>
-
-
-                        <!-- ROLE -->
-
-                        <td class="text-center">
-
-
-                            @if($user->role->name == 'admin')
-
-
-                                <span class="role-badge role-admin">
-
-                                    Admin
-
+                                <span class="user-name">
+                                    {{ $user->name }}
                                 </span>
 
+                            </td>
 
-                            @else
+                            <!-- EMAIL -->
+                            <td>
 
-
-                                <span class="role-badge role-kasir">
-
-                                    Kasir
-
+                                <span class="user-email">
+                                    {{ $user->email }}
                                 </span>
 
+                            </td>
 
-                            @endif
+                            <!-- ROLE -->
+                            <td class="text-center">
 
+                                @if($user->role->name == 'admin')
 
-                        </td>
+                                    <span class="role-badge role-admin">
+                                        Admin
+                                    </span>
 
+                                @else
 
-                        <!-- AKSI -->
+                                    <span class="role-badge role-kasir">
+                                        Kasir
+                                    </span>
 
-                        <td class="text-center">
+                                @endif
 
+                            </td>
 
-                            <a
-                                href="{{ route('admin.users.edit', $user) }}"
-                                class="action-edit">
+                            <!-- AKSI -->
+                            <td class="text-center">
 
-                                Edit
+                                <div class="action-wrapper">
 
-                            </a>
+                                    <!-- EDIT -->
+                                    <a
+                                        href="{{ route('admin.users.edit', $user) }}"
+                                        class="action-btn action-edit"
+                                        title="Edit User">
 
+                                        <i class="bi bi-pencil"></i>
 
-                            <form
-                                action="{{ route('admin.users.destroy', $user) }}"
-                                method="POST"
-                                class="d-inline">
+                                    </a>
 
-                                @csrf
+                                    <!-- HAPUS -->
+                                    <form
+                                        action="{{ route('admin.users.destroy', $user) }}"
+                                        method="POST"
+                                        class="d-inline">
 
-                                @method('DELETE')
+                                        @csrf
 
+                                        @method('DELETE')
 
-                                <button
-                                    type="submit"
-                                    class="action-delete"
-                                    onclick="return confirm('Yakin ingin menghapus user ini?')">
+                                        <button
+                                            type="submit"
+                                            class="action-btn action-delete"
+                                            title="Hapus User"
+                                            onclick="return confirm('Yakin ingin menghapus user ini?')">
 
-                                    Hapus
+                                            <i class="bi bi-trash"></i>
 
-                                </button>
+                                        </button>
 
+                                    </form>
 
-                            </form>
+                                </div>
 
+                            </td>
 
-                        </td>
-
-
-                    </tr>
-
+                        </tr>
 
                     @empty
 
+                        <tr>
 
-                    <tr>
+                            <td
+                                colspan="5"
+                                class="empty-state">
 
-                        <td colspan="5"
-                            class="empty-state">
+                                <div class="empty-icon">
 
-                            Belum ada data user.
+                                    <i class="bi bi-inbox"></i>
 
-                        </td>
+                                </div>
 
-                    </tr>
+                                <strong>
+                                    Belum ada data user
+                                </strong>
 
+                                <p>
+                                    Silakan tambahkan user baru.
+                                </p>
+
+                                <a
+                                    href="{{ route('admin.users.create') }}"
+                                    class="btn-add-user">
+
+                                    <i class="bi bi-plus-lg"></i>
+
+                                    Tambah User
+
+                                </a>
+
+                            </td>
+
+                        </tr>
 
                     @endforelse
-
 
                 </tbody>
 
@@ -812,20 +606,23 @@
 
         </div>
 
-
         <!-- PAGINATION -->
+        @if($users->hasPages())
 
-        <div class="users-pagination">
+            <div class="users-pagination">
 
-            {{ $users->links() }}
+                {{ $users->links() }}
 
-        </div>
+            </div>
 
+        @endif
 
     </div>
 
-
 </div>
 
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 @endsection

@@ -3,7 +3,7 @@
 @section('title', 'Detail Penjualan')
 
 @section('content')
-@include('layouts.navbar')
+
 
 <style>
 /* ==================================================

@@ -4,7 +4,6 @@
 
 @section('content')
 
-@include('layouts.navbar')
 
 <h4 class="mb-3">Edit Produk</h4>
 

@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('layouts.navbar')
+
 
 <h4>Edit User</h4>
 

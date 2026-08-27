@@ -3,7 +3,7 @@
 @section('title', 'Detail Produk')
 
 @section('content')
-@include('layouts.navbar')
+
 
 <div class="detail-page">
     <div class="detail-container">

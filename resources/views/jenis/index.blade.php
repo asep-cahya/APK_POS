@@ -6,303 +6,103 @@
 
 @include('layouts.navbar')
 
-<div class="jenis-page">
-    <div class="jenis-container">
-
-        <!-- Header -->
-        <div class="jenis-header">
-            <div>
-                <div class="breadcrumb-custom">
-                    <span>Data</span>
-                    <i class="bi bi-chevron-right"></i>
-                    <span>Jenis Produk</span>
-                </div>
-
-                <h2 class="page-title">Manajemen Jenis</h2>
-
-                <p class="page-description">
-                    Kelola seluruh jenis produk yang tersedia.
-                </p>
-            </div>
-
-            <a href="{{ route('jenis.create') }}" class="btn-add">
-                <i class="bi bi-plus-lg"></i>
-                Tambah Jenis
-            </a>
-        </div>
-
-        <!-- Alert Success -->
-        @if(session('success'))
-            <div class="alert-custom alert-success-custom">
-                <div>
-                    <i class="bi bi-check-circle-fill"></i>
-                    <span>{{ session('success') }}</span>
-                </div>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
-                </button>
-            </div>
-        @endif
-
-        <!-- Alert Error -->
-        @if($errors->any())
-            <div class="alert-custom alert-danger-custom">
-                <div>
-                    <strong>Terdapat kesalahan:</strong>
-
-                    <ul>
-                        @foreach($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
-
-                <button
-                    type="button"
-                    class="btn-close"
-                    data-bs-dismiss="alert">
-                </button>
-            </div>
-        @endif
-
-        <!-- Table Card -->
-        <div class="jenis-card">
-            <div class="card-header-custom">
-                <div>
-                    <h5>Daftar Jenis</h5>
-                    <p>Data jenis produk yang tersimpan di sistem.</p>
-                </div>
-
-                <div class="total-data">
-                    <i class="bi bi-tags"></i>
-                    {{ $jenis->count() }} Jenis
-                </div>
-            </div>
-
-            <div class="table-responsive">
-                <table class="table jenis-table align-middle">
-                    <thead>
-                        <tr>
-                            <th width="65" class="text-center">No</th>
-                            <th>Nama Jenis</th>
-                            <th>Keterangan</th>
-                            <th>Ditambahkan Oleh</th>
-                            <th width="180" class="text-center">Aksi</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        @forelse($jenis as $item)
-                            <tr>
-                                <td class="text-center">
-                                    <span class="number">
-                                        {{ $loop->iteration }}
-                                    </span>
-                                </td>
-
-                                <td>
-                                    <div class="jenis-name">
-                                        <div class="jenis-icon">
-                                            <i class="bi bi-tag"></i>
-                                        </div>
-
-                                        <span>{{ $item->nama_jenis }}</span>
-                                    </div>
-                                </td>
-
-                                <td>
-                                    @if($item->keterangan)
-                                        <span class="description">
-                                            {{ $item->keterangan }}
-                                        </span>
-                                    @else
-                                        <span class="empty-text">
-                                            Tidak ada keterangan
-                                        </span>
-                                    @endif
-                                </td>
-
-                                <td>
-                                    @if($item->creator)
-                                        <div class="creator">
-                                            <div class="creator-name">
-                                                <i class="bi bi-person"></i>
-                                                {{ $item->creator->name }}
-                                            </div>
-
-                                            <div class="creator-date">
-                                                {{ $item->created_at->format('d M Y, H:i') }}
-                                            </div>
-                                        </div>
-                                    @else
-                                        <span class="empty-text">
-                                            Tidak diketahui
-                                        </span>
-                                    @endif
-                                </td>
-
-                                <td>
-                                    <div class="action-buttons">
-                                        <a
-                                            href="{{ route('jenis.edit', $item->id) }}"
-                                            class="action-edit"
-                                            title="Edit">
-
-                                            <i class="bi bi-pencil"></i>
-                                            Edit
-                                        </a>
-
-                                        <form
-                                            action="{{ route('jenis.destroy', $item->id) }}"
-                                            method="POST">
-
-                                            @csrf
-                                            @method('DELETE')
-
-                                            <button
-                                                type="submit"
-                                                class="action-delete"
-                                                title="Hapus"
-                                                onclick="return confirm('Apakah yakin ingin menghapus jenis ini?')">
-
-                                                <i class="bi bi-trash"></i>
-                                                Hapus
-                                            </button>
-                                        </form>
-                                    </div>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="empty-state">
-                                    <div class="empty-icon">
-                                        <i class="bi bi-inbox"></i>
-                                    </div>
-
-                                    <strong>Belum ada data jenis</strong>
-
-                                    <p>
-                                        Silakan tambahkan jenis produk baru.
-                                    </p>
-
-                                    <a
-                                        href="{{ route('jenis.create') }}"
-                                        class="btn-add-empty">
-
-                                        <i class="bi bi-plus-lg"></i>
-                                        Tambah Jenis
-                                    </a>
-                                </td>
-                            </tr>
-                        @endforelse
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-    </div>
-</div>
-
 <style>
-.jenis-page {
-    min-height: calc(100vh - 70px);
-    background: #f5f7fa;
-    padding: 32px 28px 50px;
+/* ==================================================
+   JENIS PAGE
+================================================== */
+
+.jenis-wrapper {
+    width: 100%;
+    min-height: calc(100vh - 68px);
+    background: #f4f5f7;
+    padding: 28px 32px 40px;
 }
 
-.jenis-container {
-    width: 100%;
-    max-width: 1150px;
-    margin: 0 auto;
-}
+/* ==================================================
+   HEADER
+================================================== */
 
 .jenis-header {
-    display: flex;
-    align-items: flex-end;
-    justify-content: space-between;
-    gap: 25px;
-    margin-bottom: 24px;
+    margin-bottom: 18px;
 }
 
-.breadcrumb-custom {
+.jenis-header-inner {
     display: flex;
     align-items: center;
-    gap: 7px;
-    margin-bottom: 8px;
-    color: #9ca3af;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.jenis-title {
+    color: #20242c;
+    font-size: 24px;
+    font-weight: 700;
+    margin: 0 0 4px;
+    letter-spacing: -0.4px;
+}
+
+.jenis-subtitle {
+    color: #8a929e;
     font-size: 12px;
 }
 
-.breadcrumb-custom i {
-    font-size: 9px;
-}
+/* ==================================================
+   BUTTON TAMBAH
+================================================== */
 
-.page-title {
-    margin: 0;
-    color: #1f2937;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-}
-
-.page-description {
-    margin: 6px 0 0;
-    color: #6b7280;
-    font-size: 13px;
-}
-
-.btn-add {
+.btn-tambah {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    height: 42px;
-    padding: 0 17px;
-    border: 1px solid #111827;
-    border-radius: 9px;
-    background: #111827;
-    color: #ffffff;
+    gap: 7px;
+    padding: 9px 15px;
+    background: #20242c;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
+    text-decoration: none;
     font-size: 12px;
     font-weight: 600;
-    text-decoration: none;
-    transition: 0.2s ease;
+    white-space: nowrap;
+    transition: 0.2s;
 }
 
-.btn-add:hover {
+.btn-tambah:hover {
     background: #10b981;
-    border-color: #10b981;
-    color: #ffffff;
-    transform: translateY(-1px);
+    color: #fff;
 }
+
+/* ==================================================
+   ALERT
+================================================== */
 
 .alert-custom {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     justify-content: space-between;
     gap: 15px;
+    padding: 12px 15px;
     margin-bottom: 18px;
-    padding: 13px 16px;
-    border-radius: 10px;
+    border-radius: 9px;
     font-size: 12px;
+}
+
+.alert-success-custom {
+    background: #ecfdf5;
+    color: #047857;
+    border: 1px solid #d1fae5;
+}
+
+.alert-danger-custom {
+    background: #fef2f2;
+    color: #b91c1c;
+    border: 1px solid #fecaca;
 }
 
 .alert-custom > div {
     display: flex;
     align-items: center;
     gap: 8px;
-}
-
-.alert-success-custom {
-    background: #ecfdf5;
-    color: #047857;
-}
-
-.alert-danger-custom {
-    background: #fef2f2;
-    color: #b91c1c;
 }
 
 .alert-danger-custom > div {
@@ -314,59 +114,56 @@
     padding: 0;
 }
 
+/* ==================================================
+   JENIS CARD
+================================================== */
+
 .jenis-card {
-    overflow: hidden;
-    background: #ffffff;
+    width: 100%;
+    background: #fff;
     border: 1px solid #e5e7eb;
-    border-radius: 14px;
-    box-shadow: 0 5px 20px rgba(15, 23, 42, 0.04);
+    border-radius: 12px;
+    overflow: hidden;
 }
 
-.card-header-custom {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 15px;
-    padding: 17px 20px;
-    border-bottom: 1px solid #edf0f3;
+/* ==================================================
+   CARD HEADER
+================================================== */
+
+.jenis-card-header {
+    padding: 15px 18px;
+    border-bottom: 1px solid #eef0f2;
 }
 
-.card-header-custom h5 {
+.jenis-card-title {
     margin: 0;
-    color: #1f2937;
+    color: #20242c;
     font-size: 14px;
     font-weight: 700;
 }
 
-.card-header-custom p {
-    margin: 4px 0 0;
-    color: #9ca3af;
-    font-size: 11px;
-}
+/* ==================================================
+   TABLE
+================================================== */
 
-.total-data {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 6px 10px;
-    border-radius: 7px;
-    background: #ecfdf5;
-    color: #047857;
-    font-size: 11px;
-    font-weight: 600;
+.jenis-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .jenis-table {
     width: 100%;
     min-width: 850px;
     margin: 0;
+    table-layout: auto;
 }
 
 .jenis-table thead th {
-    padding: 11px 15px;
-    border-bottom: 1px solid #e5e7eb;
-    background: #f8fafc;
+    background: #f8f9fa;
     color: #8a929e;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 12px;
     font-size: 10px;
     font-weight: 700;
     text-transform: uppercase;
@@ -375,45 +172,58 @@
 }
 
 .jenis-table tbody td {
-    padding: 13px 15px;
-    border-color: #f0f1f3;
+    padding: 11px 12px;
     color: #4b5563;
+    border-color: #f0f1f3;
     font-size: 12px;
     vertical-align: middle;
 }
 
 .jenis-table tbody tr {
-    transition: 0.15s ease;
+    transition: 0.2s;
 }
 
 .jenis-table tbody tr:hover {
     background: #fafbfc;
 }
 
-.number {
-    color: #9ca3af;
+/* ==================================================
+   NOMOR
+================================================== */
+
+.nomor {
+    color: #8a929e;
     font-size: 11px;
 }
+
+/* ==================================================
+   NAMA JENIS
+================================================== */
 
 .jenis-name {
     display: flex;
     align-items: center;
-    gap: 10px;
-    color: #1f2937;
+    gap: 9px;
+    color: #20242c;
     font-weight: 600;
 }
 
 .jenis-icon {
     width: 32px;
     height: 32px;
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
     border-radius: 8px;
     background: #ecfdf5;
     color: #10b981;
+    font-size: 13px;
 }
+
+/* ==================================================
+   KETERANGAN
+================================================== */
 
 .description {
     display: block;
@@ -421,13 +231,18 @@
     overflow: hidden;
     color: #4b5563;
     text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .empty-text {
-    color: #9ca3af;
+    color: #9aa1ab;
     font-size: 11px;
     font-style: italic;
 }
+
+/* ==================================================
+   CREATOR
+================================================== */
 
 .creator-name {
     display: flex;
@@ -439,58 +254,63 @@
 }
 
 .creator-name i {
-    color: #9ca3af;
+    color: #9aa3af;
 }
 
 .creator-date {
     margin-top: 3px;
-    color: #9ca3af;
+    color: #9aa1ab;
     font-size: 10px;
 }
+
+/* ==================================================
+   ACTION
+================================================== */
 
 .action-buttons {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
 }
 
 .action-buttons form {
     margin: 0;
 }
 
-.action-edit,
-.action-delete {
+.action-btn {
+    width: 32px;
     height: 32px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    gap: 5px;
-    padding: 0 10px;
     border-radius: 7px;
-    font-size: 11px;
-    font-weight: 600;
+    border: 1px solid transparent;
     text-decoration: none;
-    transition: 0.2s ease;
+    font-size: 13px;
+    transition: 0.2s;
     cursor: pointer;
 }
 
+/* EDIT */
+
 .action-edit {
-    border: 1px solid #dfe3e8;
-    background: #ffffff;
-    color: #4b5563;
+    background: #ecfdf5;
+    color: #047857;
+    border-color: #d1fae5;
 }
 
 .action-edit:hover {
-    background: #f3f4f6;
-    border-color: #cbd0d7;
-    color: #1f2937;
+    background: #d1fae5;
+    color: #065f46;
 }
 
+/* DELETE */
+
 .action-delete {
-    border: 1px solid #fecaca;
     background: #fef2f2;
     color: #b91c1c;
+    border-color: #fecaca;
 }
 
 .action-delete:hover {
@@ -498,22 +318,28 @@
     color: #991b1b;
 }
 
+/* ==================================================
+   EMPTY STATE
+================================================== */
+
 .empty-state {
-    padding: 50px 20px !important;
+    padding: 35px 20px !important;
+    color: #9aa1ab !important;
     text-align: center;
+    font-size: 12px !important;
 }
 
 .empty-icon {
-    width: 48px;
-    height: 48px;
+    width: 44px;
+    height: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 10px;
-    border-radius: 12px;
+    border-radius: 10px;
     background: #f3f4f6;
-    color: #9ca3af;
-    font-size: 20px;
+    color: #9aa1ab;
+    font-size: 19px;
 }
 
 .empty-state strong {
@@ -523,8 +349,8 @@
 }
 
 .empty-state p {
-    margin: 4px 0 14px;
-    color: #9ca3af;
+    margin: 4px 0 13px;
+    color: #9aa1ab;
     font-size: 11px;
 }
 
@@ -534,8 +360,8 @@
     gap: 6px;
     padding: 8px 13px;
     border-radius: 7px;
-    background: #111827;
-    color: #ffffff;
+    background: #20242c;
+    color: #fff;
     font-size: 11px;
     font-weight: 600;
     text-decoration: none;
@@ -543,37 +369,382 @@
 
 .btn-add-empty:hover {
     background: #10b981;
-    color: #ffffff;
+    color: #fff;
 }
 
+/* ==================================================
+   RESPONSIVE
+================================================== */
+
 @media (max-width: 768px) {
-    .jenis-page {
-        padding: 25px 16px 40px;
+
+    .jenis-wrapper {
+        padding: 22px 16px 35px;
     }
 
-    .jenis-header {
+    .jenis-header-inner {
         align-items: flex-start;
+        gap: 12px;
+    }
+
+    .jenis-title {
+        font-size: 21px;
+    }
+
+    .btn-tambah {
+        padding: 9px 13px;
+    }
+}
+
+@media (max-width: 550px) {
+
+    .jenis-header-inner {
         flex-direction: column;
     }
 
-    .btn-add {
+    .btn-tambah {
         width: 100%;
-    }
-
-    .page-title {
-        font-size: 24px;
-    }
-
-    .card-header-custom {
-        align-items: flex-start;
-        flex-direction: column;
-    }
-
-    .total-data {
-        align-self: flex-start;
     }
 }
 </style>
+
+
+<div class="jenis-wrapper">
+
+    <!-- HEADER -->
+    <div class="jenis-header">
+
+        <div class="jenis-header-inner">
+
+            <div>
+                <h2 class="jenis-title">
+                    Manajemen Jenis
+                </h2>
+
+                <p class="jenis-subtitle mb-0">
+                    Kelola seluruh jenis produk yang tersedia.
+                </p>
+            </div>
+
+            <!-- TOMBOL TETAP DI KANAN -->
+            <a
+                href="{{ route('jenis.create') }}"
+                class="btn-tambah">
+
+                <i class="bi bi-plus-lg"></i>
+
+                Tambah Jenis
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- ALERT SUCCESS -->
+    @if(session('success'))
+
+        <div class="alert-custom alert-success-custom">
+
+            <div>
+
+                <i class="bi bi-check-circle-fill"></i>
+
+                <span>
+                    {{ session('success') }}
+                </span>
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+
+    <!-- ALERT ERROR -->
+    @if($errors->any())
+
+        <div class="alert-custom alert-danger-custom">
+
+            <div>
+
+                <strong>
+                    Terdapat kesalahan:
+                </strong>
+
+                <ul>
+
+                    @foreach($errors->all() as $error)
+
+                        <li>
+                            {{ $error }}
+                        </li>
+
+                    @endforeach
+
+                </ul>
+
+            </div>
+
+            <button
+                type="button"
+                class="btn-close"
+                data-bs-dismiss="alert">
+            </button>
+
+        </div>
+
+    @endif
+
+
+    <!-- TABLE CARD -->
+    <div class="jenis-card">
+
+        <!-- CARD HEADER -->
+        <div class="jenis-card-header">
+
+            <h5 class="jenis-card-title">
+                Daftar Jenis
+            </h5>
+
+        </div>
+
+
+        <!-- TABLE -->
+        <div class="jenis-table-wrapper">
+
+            <table class="table jenis-table align-middle">
+
+                <thead>
+
+                    <tr>
+
+                        <th
+                            width="60"
+                            class="text-center">
+
+                            No
+
+                        </th>
+
+                        <th>
+                            Nama Jenis
+                        </th>
+
+                        <th>
+                            Keterangan
+                        </th>
+
+                        <th>
+                            Ditambahkan Oleh
+                        </th>
+
+                        <th
+                            width="130"
+                            class="text-center">
+
+                            Aksi
+
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    @forelse($jenis as $item)
+
+                        <tr>
+
+                            <!-- NO -->
+                            <td class="text-center nomor">
+
+                                {{ $loop->iteration }}
+
+                            </td>
+
+
+                            <!-- NAMA JENIS -->
+                            <td>
+
+                                <div class="jenis-name">
+
+                                    <div class="jenis-icon">
+
+                                        <i class="bi bi-tag"></i>
+
+                                    </div>
+
+                                    <span>
+                                        {{ $item->nama_jenis }}
+                                    </span>
+
+                                </div>
+
+                            </td>
+
+
+                            <!-- KETERANGAN -->
+                            <td>
+
+                                @if($item->keterangan)
+
+                                    <span class="description">
+
+                                        {{ $item->keterangan }}
+
+                                    </span>
+
+                                @else
+
+                                    <span class="empty-text">
+
+                                        Tidak ada keterangan
+
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            <!-- CREATOR -->
+                            <td>
+
+                                @if($item->creator)
+
+                                    <div class="creator">
+
+                                        <div class="creator-name">
+
+                                            <i class="bi bi-person"></i>
+
+                                            {{ $item->creator->name }}
+
+                                        </div>
+
+                                        <div class="creator-date">
+
+                                            {{ $item->created_at->format('d M Y, H:i') }}
+
+                                        </div>
+
+                                    </div>
+
+                                @else
+
+                                    <span class="empty-text">
+
+                                        Tidak diketahui
+
+                                    </span>
+
+                                @endif
+
+                            </td>
+
+
+                            <!-- AKSI -->
+                            <td class="text-center">
+
+                                <div class="action-buttons">
+
+                                    <!-- EDIT -->
+                                    <a
+                                        href="{{ route('jenis.edit', $item->id) }}"
+                                        class="action-btn action-edit"
+                                        title="Edit">
+
+                                        <i class="bi bi-pencil"></i>
+
+                                    </a>
+
+
+                                    <!-- HAPUS -->
+                                    <form
+                                        action="{{ route('jenis.destroy', $item->id) }}"
+                                        method="POST"
+                                        class="d-inline">
+
+                                        @csrf
+
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="action-btn action-delete"
+                                            title="Hapus"
+                                            onclick="return confirm('Apakah yakin ingin menghapus jenis ini?')">
+
+                                            <i class="bi bi-trash"></i>
+
+                                        </button>
+
+                                    </form>
+
+                                </div>
+
+                            </td>
+
+                        </tr>
+
+                    @empty
+
+                        <tr>
+
+                            <td
+                                colspan="5"
+                                class="empty-state">
+
+                                <div class="empty-icon">
+
+                                    <i class="bi bi-inbox"></i>
+
+                                </div>
+
+                                <strong>
+                                    Belum ada data jenis
+                                </strong>
+
+                                <p>
+                                    Silakan tambahkan jenis produk baru.
+                                </p>
+
+                                <a
+                                    href="{{ route('jenis.create') }}"
+                                    class="btn-add-empty">
+
+                                    <i class="bi bi-plus-lg"></i>
+
+                                    Tambah Jenis
+
+                                </a>
+
+                            </td>
+
+                        </tr>
+
+                    @endforelse
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </div>
+
+</div>
+
 
 <link
     rel="stylesheet"
