@@ -1,166 +1,89 @@
-<nav class="sidebar">
+<nav class="top-navbar">
 
-    {{-- Brand --}}
-    <div class="sidebar-brand">
+    {{-- BRAND --}}
+    <a href="{{ route('dashboard') }}" class="brand">
 
-        <a href="{{ route('dashboard') }}" class="brand-link">
+        <div class="brand-logo">
+            PA
+        </div>
 
-            <div class="brand-logo">
-                P
+        <div class="brand-info">
+            <div class="brand-name">
+                POS AsepCahya
             </div>
 
-            <div class="brand-text">
-
-                <div class="brand-title">
-                    POS Kasir
-                </div>
-
-                <div class="brand-subtitle">
-                    Point of Sale
-                </div>
-
+            <div class="brand-subtitle">
+                Point of Sale
             </div>
+        </div>
+
+    </a>
+
+
+    {{-- MENU --}}
+    <div class="nav-menu">
+
+        <a href="{{ route('dashboard') }}"
+           class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}">
+
+            <span class="nav-icon">▦</span>
+            <span>Dashboard</span>
+
+        </a>
+
+
+        @if(auth()->user()->role->name == 'admin')
+
+            <a href="{{ route('admin.users') }}"
+               class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}">
+
+                <span class="nav-icon">♟</span>
+                <span>Users</span>
+
+            </a>
+
+        @endif
+
+
+        <a href="{{ route('jenis.index') }}"
+           class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}">
+
+            <span class="nav-icon">◇</span>
+            <span>Jenis</span>
+
+        </a>
+
+
+        <a href="{{ route('produk.index') }}"
+           class="nav-link {{ Request::is('produk*') ? 'active' : '' }}">
+
+            <span class="nav-icon">▣</span>
+            <span>Produk</span>
+
+        </a>
+
+
+        <a href="{{ route('penjualan.index') }}"
+           class="nav-link {{ Request::is('penjualan*') ? 'active' : '' }}">
+
+            <span class="nav-icon">▤</span>
+            <span>Penjualan</span>
 
         </a>
 
     </div>
 
 
-    {{-- Menu --}}
-    <div class="sidebar-content">
+    {{-- USER --}}
+    <div class="nav-user">
 
-        <div class="menu-label">
-            MENU UTAMA
-        </div>
-
-
-        <ul class="sidebar-menu">
-
-            {{-- Dashboard --}}
-            <li>
-
-                <a href="{{ route('dashboard') }}"
-                   class="sidebar-link {{ Request::is('dashboard') ? 'active-menu' : '' }}">
-
-                    <span class="menu-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/>
-                        </svg>
-                    </span>
-
-                    <span class="menu-text">
-                        Dashboard
-                    </span>
-
-                </a>
-
-            </li>
-
-
-            {{-- Users --}}
-            @if(auth()->user()->role->name == 'admin')
-
-            <li>
-
-                <a href="{{ route('admin.users') }}"
-                   class="sidebar-link {{ Request::is('admin/users*') ? 'active-menu' : '' }}">
-
-                    <span class="menu-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5s-2.99 1.34-2.99 3S14.34 11 16 11zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5 5.01 6.34 5.01 8 6.34 11 8 11zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5C15 14.17 10.33 13 8 13zm8 0c-.29 0-.62.02-.97.05 1.17.84 1.97 1.94 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
-                        </svg>
-                    </span>
-
-                    <span class="menu-text">
-                        Users
-                    </span>
-
-                </a>
-
-            </li>
-
-            @endif
-
-
-            {{-- Jenis --}}
-            <li>
-
-                <a href="{{ route('jenis.index') }}"
-                   class="sidebar-link {{ Request::is('jenis*') ? 'active-menu' : '' }}">
-
-                    <span class="menu-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M20.59 13.41l-7.99-8A2 2 0 0011.17 5H5a2 2 0 00-2 2v6.17a2 2 0 00.59 1.42l8 8a2 2 0 002.82 0l6.18-6.18a2 2 0 000-3zM7.5 9.5A1.5 1.5 0 119 8a1.5 1.5 0 01-1.5 1.5z"/>
-                        </svg>
-                    </span>
-
-                    <span class="menu-text">
-                        Jenis
-                    </span>
-
-                </a>
-
-            </li>
-
-
-            {{-- Produk --}}
-            <li>
-
-                <a href="{{ route('produk.index') }}"
-                   class="sidebar-link {{ Request::is('produk*') ? 'active-menu' : '' }}">
-
-                    <span class="menu-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M20 8h-3V4H7v4H4c-1.1 0-2 .9-2 2v8c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2v-8c0-1.1-.9-2-2-2zM9 6h6v2H9V6zm10 12H5v-6h14v6zm-3-4h-4v2h4v-2z"/>
-                        </svg>
-                    </span>
-
-                    <span class="menu-text">
-                        Produk
-                    </span>
-
-                </a>
-
-            </li>
-
-
-            {{-- Penjualan --}}
-            <li>
-
-                <a href="{{ route('penjualan.index') }}"
-                   class="sidebar-link {{ Request::is('penjualan*') ? 'active-menu' : '' }}">
-
-                    <span class="menu-icon">
-                        <svg viewBox="0 0 24 24">
-                            <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-1 15H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V8h12v2z"/>
-                        </svg>
-                    </span>
-
-                    <span class="menu-text">
-                        Penjualan
-                    </span>
-
-                </a>
-
-            </li>
-
-        </ul>
-
-    </div>
-
-
-    {{-- User --}}
-    <div class="sidebar-bottom">
-
-        <div class="user-card">
+        <div class="user-profile">
 
             <div class="user-avatar">
-
                 {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-
             </div>
 
-            <div class="user-info">
+            <div class="user-detail">
 
                 <div class="user-name">
                     {{ auth()->user()->name }}
@@ -175,22 +98,17 @@
         </div>
 
 
-        <form action="{{ route('logout') }}"
-              method="POST">
+        <div class="nav-divider"></div>
 
+
+        <form action="{{ route('logout') }}" method="POST">
             @csrf
 
             <button type="submit" class="logout-btn">
 
-                <svg viewBox="0 0 24 24">
+                <span>↪</span>
 
-                    <path d="M10 17l5-5-5-5v3H3v4h7v3zm9-14H5c-1.1 0-2 .9-2 2v3h2V5h14v14H5v-3H3v3c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"/>
-
-                </svg>
-
-                <span>
-                    Logout
-                </span>
+                <span>Logout</span>
 
             </button>
 
@@ -199,474 +117,309 @@
     </div>
 
 </nav>
-
-
 <style>
 
-/* ==================================================
-   SIDEBAR
-================================================== */
+/* =========================
+   NAVBAR
+========================= */
 
-.sidebar {
-
-    position: fixed;
-
-    top: 0;
-    left: 0;
-
-    width: 250px;
-    height: 100vh;
-
-    background: #20242C;
-
-    color: #ffffff;
+.top-navbar {
+    width: 100%;
+    height: 68px;
 
     display: flex;
-    flex-direction: column;
-
-    z-index: 1000;
-
-    font-family: Arial, Helvetica, sans-serif;
-
-    box-shadow: 4px 0 20px rgba(15, 23, 42, 0.12);
-
-}
-
-
-/* ==================================================
-   BRAND
-================================================== */
-
-.sidebar-brand {
-
-    padding: 25px 22px;
-
-    border-bottom: 1px solid #2D333D;
-
-}
-
-
-.brand-link {
-
-    display: flex;
-
     align-items: center;
 
-    gap: 12px;
+    padding: 0 28px;
 
-    text-decoration: none;
+    background: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
 
+    box-sizing: border-box;
 }
 
+
+/* =========================
+   BRAND
+========================= */
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    min-width: 220px;
+
+    color: #111827;
+    text-decoration: none;
+}
 
 .brand-logo {
+    width: 38px;
+    height: 38px;
 
-    width: 40px;
-    height: 40px;
-
-    border-radius: 11px;
-
-    background: #10B981;
-
-    color: #ffffff;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 17px;
-
-    font-weight: 700;
-
-}
-
-
-.brand-title {
-
-    color: #F9FAFB;
-
-    font-size: 16px;
-
-    font-weight: 700;
-
-    line-height: 1.2;
-
-}
-
-
-.brand-subtitle {
-
-    color: #8F98A6;
-
-    font-size: 10px;
-
-    margin-top: 3px;
-
-    letter-spacing: .3px;
-
-}
-
-
-/* ==================================================
-   CONTENT
-================================================== */
-
-.sidebar-content {
-
-    flex: 1;
-
-    padding: 28px 15px;
-
-    overflow-y: auto;
-
-}
-
-
-.menu-label {
-
-    padding: 0 12px;
-
-    margin-bottom: 10px;
-
-    color: #707987;
-
-    font-size: 10px;
-
-    font-weight: 700;
-
-    letter-spacing: 1px;
-
-}
-
-
-/* ==================================================
-   MENU
-================================================== */
-
-.sidebar-menu {
-
-    list-style: none;
-
-    margin: 0;
-
-    padding: 0;
-
-}
-
-
-.sidebar-menu li {
-
-    margin-bottom: 4px;
-
-}
-
-
-.sidebar-link {
-
-    position: relative;
-
-    display: flex;
-
-    align-items: center;
-
-    gap: 13px;
-
-    height: 45px;
-
-    padding: 0 13px;
+    display: grid;
+    place-items: center;
 
     border-radius: 10px;
 
-    text-decoration: none;
-
-    color: #A1A8B3;
+    background: #10b981;
+    color: #ffffff;
 
     font-size: 13px;
+    font-weight: 700;
+}
 
-    font-weight: 500;
+.brand-name {
+    color: #111827;
 
-    transition: all .2s ease;
+    font-size: 14px;
+    font-weight: 700;
+}
 
+.brand-subtitle {
+    margin-top: 2px;
+
+    color: #98a2b3;
+
+    font-size: 9px;
 }
 
 
-.sidebar-link:hover {
+/* =========================
+   MENU
+========================= */
 
-    background: #292F38;
-
-    color: #F9FAFB;
-
-}
-
-
-/* ==================================================
-   ICON
-================================================== */
-
-.menu-icon {
-
-    width: 20px;
-
-    height: 20px;
+.nav-menu {
+    height: 100%;
 
     display: flex;
-
     align-items: center;
 
-    justify-content: center;
+    gap: 4px;
 
-    flex-shrink: 0;
-
+    flex: 1;
 }
 
+.nav-link {
+    position: relative;
 
-.menu-icon svg {
+    height: 42px;
 
-    width: 17px;
+    display: flex;
+    align-items: center;
 
-    height: 17px;
+    gap: 8px;
 
-    fill: currentColor;
+    padding: 0 14px;
 
+    border-radius: 8px;
+
+    color: #667085;
+
+    text-decoration: none;
+
+    font-size: 12px;
+    font-weight: 500;
+
+    transition: .2s ease;
 }
 
+.nav-link:hover {
+    color: #111827;
+    background: #f3f4f6;
+}
 
-/* ==================================================
-   ACTIVE MENU
-================================================== */
+.nav-link.active {
+    color: #111827;
 
-.sidebar-link.active-menu {
-
-    background: #303741;
-
-    color: #F9FAFB;
+    background: #f0fdf9;
 
     font-weight: 600;
-
 }
 
-
-.sidebar-link.active-menu::before {
-
+.nav-link.active::after {
     content: "";
 
     position: absolute;
 
-    left: 0;
+    left: 14px;
+    right: 14px;
 
-    top: 9px;
+    bottom: 0;
 
-    width: 3px;
+    height: 3px;
 
-    height: 27px;
+    border-radius: 3px 3px 0 0;
 
-    background: #10B981;
+    background: #10b981;
+}
 
-    border-radius: 0 4px 4px 0;
+.nav-icon {
+    width: 18px;
 
+    display: inline-flex;
+    justify-content: center;
+
+    color: #667085;
+
+    font-size: 14px;
+}
+
+.nav-link.active .nav-icon {
+    color: #10b981;
 }
 
 
-/* ==================================================
+/* =========================
    USER
-================================================== */
+========================= */
 
-.sidebar-bottom {
-
-    padding: 17px 15px 20px;
-
-    border-top: 1px solid #2D333D;
-
-}
-
-
-.user-card {
-
+.nav-user {
     display: flex;
-
     align-items: center;
 
-    gap: 11px;
+    gap: 14px;
 
-    padding: 11px;
-
-    margin-bottom: 10px;
-
-    border-radius: 11px;
-
-    background: #292F38;
-
+    margin-left: auto;
 }
 
+.user-profile {
+    display: flex;
+    align-items: center;
+
+    gap: 9px;
+}
 
 .user-avatar {
-
     width: 36px;
     height: 36px;
 
-    flex-shrink: 0;
+    display: grid;
+    place-items: center;
 
     border-radius: 10px;
 
-    background: #10B981;
-
+    background: #10b981;
     color: #ffffff;
 
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    font-size: 13px;
-
+    font-size: 12px;
     font-weight: 700;
-
 }
-
-
-.user-info {
-
-    min-width: 0;
-
-}
-
 
 .user-name {
-
-    color: #F9FAFB;
-
-    font-size: 12px;
-
-    font-weight: 600;
-
-    white-space: nowrap;
+    max-width: 100px;
 
     overflow: hidden;
-
     text-overflow: ellipsis;
+    white-space: nowrap;
 
+    color: #111827;
+
+    font-size: 11px;
+    font-weight: 600;
 }
-
 
 .user-role {
+    margin-top: 2px;
 
-    color: #8F98A6;
+    color: #98a2b3;
 
-    font-size: 10px;
+    font-size: 9px;
+}
 
-    margin-top: 3px;
+.nav-divider {
+    width: 1px;
+    height: 28px;
 
-    text-transform: capitalize;
-
+    background: #e5e7eb;
 }
 
 
-/* ==================================================
+/* =========================
    LOGOUT
-================================================== */
+========================= */
 
 .logout-btn {
-
-    width: 100%;
-
-    height: 40px;
+    height: 36px;
 
     display: flex;
-
     align-items: center;
 
-    justify-content: center;
+    gap: 7px;
 
-    gap: 9px;
+    padding: 0 12px;
 
-    background: transparent;
+    border: 1px solid #dfe3e8;
+    border-radius: 8px;
 
-    border: 1px solid #3A414C;
+    background: #ffffff;
 
-    border-radius: 9px;
+    color: #667085;
 
-    color: #A1A8B3;
-
-    font-size: 12px;
-
-    font-weight: 500;
+    font-size: 11px;
 
     cursor: pointer;
 
-    transition: all .2s ease;
-
+    transition: .2s ease;
 }
-
-
-.logout-btn svg {
-
-    width: 16px;
-
-    height: 16px;
-
-    fill: currentColor;
-
-}
-
 
 .logout-btn:hover {
+    background: #f3f4f6;
 
-    background: #303741;
+    border-color: #d1d5db;
 
-    border-color: #4A535F;
-
-    color: #F9FAFB;
-
+    color: #111827;
 }
 
 
-/* ==================================================
-   BODY
-================================================== */
-
-body {
-
-    margin: 0;
-
-    background: #F5F6F8;
-
-}
-
-
-/* ==================================================
-   CONTENT
-================================================== */
-
-.main-content {
-
-    margin-left: 250px;
-
-    min-height: 100vh;
-
-    padding: 30px;
-
-}
-
-
-/* ==================================================
+/* =========================
    RESPONSIVE
-================================================== */
+========================= */
 
-@media (max-width: 768px) {
+@media (max-width: 950px) {
 
-    .sidebar {
-
-        width: 220px;
-
+    .top-navbar {
+        padding: 0 18px;
     }
 
-    .main-content {
+    .brand {
+        min-width: auto;
+        margin-right: 12px;
+    }
 
-        margin-left: 220px;
+    .brand-info {
+        display: none;
+    }
 
-        padding: 20px;
+    .nav-link {
+        padding: 0 10px;
+    }
 
+    .user-detail {
+        display: none;
+    }
+
+}
+
+
+@media (max-width: 700px) {
+
+    .top-navbar {
+        height: 62px;
+        padding: 0 12px;
+    }
+
+    .nav-menu {
+        overflow-x: auto;
+    }
+
+    .nav-link {
+        flex-shrink: 0;
+    }
+
+    .logout-btn span:last-child {
+        display: none;
     }
 
 }

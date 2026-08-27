@@ -6,671 +6,338 @@
 
 @include('layouts.navbar')
 
-
 <style>
-
-/* ==================================================
-   PRODUK
-================================================== */
-
 .produk-wrapper {
-
-    margin-left: 250px;
-
-    min-height: 100vh;
-
-    background: #F3F4F6;
-
-    padding: 40px;
-
+    width: 100%;
+    min-height: calc(100vh - 68px);
+    background: #f4f5f7;
+    padding: 28px 32px 40px;
 }
-
-
-/* ==================================================
-   HEADER
-================================================== */
 
 .produk-header {
-
-    margin-bottom: 32px;
-
+    margin-bottom: 18px;
 }
 
+.produk-header > div {
+    gap: 20px;
+}
 
 .produk-title {
-
-    color: #20242C;
-
-    font-size: 27px;
-
+    color: #20242c;
+    font-size: 24px;
     font-weight: 700;
-
-    margin-bottom: 6px;
-
-    letter-spacing: -0.5px;
-
+    margin: 0 0 4px;
+    letter-spacing: -0.4px;
 }
-
 
 .produk-subtitle {
-
-    color: #8A929E;
-
-    font-size: 13px;
-
+    color: #8a929e;
+    font-size: 12px;
 }
-
-
-/* ==================================================
-   BUTTON TAMBAH
-================================================== */
 
 .btn-tambah {
-
     display: inline-flex;
-
     align-items: center;
-
-    gap: 8px;
-
-    padding: 10px 18px;
-
-    background: #20242C;
-
-    color: #FFFFFF;
-
-    border: none;
-
-    border-radius: 9px;
-
+    gap: 7px;
+    padding: 9px 15px;
+    background: #20242c;
+    color: #fff;
+    border: 0;
+    border-radius: 8px;
     text-decoration: none;
-
-    font-size: 13px;
-
+    font-size: 12px;
     font-weight: 600;
-
-    transition: all .2s ease;
-
+    transition: 0.2s;
 }
-
 
 .btn-tambah:hover {
-
-    background: #303741;
-
-    color: #FFFFFF;
-
-    transform: translateY(-1px);
-
+    background: #10b981;
+    color: #fff;
 }
-
-
-/* ==================================================
-   SEARCH
-================================================== */
 
 .search-card {
-
-    background: #FFFFFF;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 14px;
-
-    margin-bottom: 20px;
-
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    margin-bottom: 18px;
 }
-
 
 .search-card-body {
-
-    padding: 18px;
-
+    padding: 14px;
 }
-
 
 .search-input {
-
-    height: 42px;
-
-    border: 1px solid #E1E4E8;
-
+    height: 40px;
+    border: 1px solid #e1e4e8;
     border-radius: 8px 0 0 8px;
-
-    font-size: 13px;
-
+    font-size: 12px;
     color: #374151;
-
     box-shadow: none !important;
-
 }
-
 
 .search-input:focus {
-
-    border-color: #10B981;
-
+    border-color: #10b981;
 }
-
 
 .search-button {
-
-    height: 42px;
-
-    background: #20242C;
-
-    color: #FFFFFF;
-
-    border: none;
-
-    padding: 0 20px;
-
+    height: 40px;
+    background: #20242c;
+    color: #fff;
+    border: 0;
+    padding: 0 17px;
     border-radius: 0 8px 8px 0;
-
-    font-size: 13px;
-
+    font-size: 12px;
     font-weight: 600;
-
 }
-
 
 .search-button:hover {
-
-    background: #303741;
-
-    color: #FFFFFF;
-
+    background: #10b981;
 }
-
-
-/* ==================================================
-   TABLE CARD
-================================================== */
 
 .produk-card {
-
-    background: #FFFFFF;
-
-    border: 1px solid #E5E7EB;
-
-    border-radius: 14px;
-
+    width: 100%;
+    background: #fff;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
     overflow: hidden;
-
 }
-
 
 .produk-card-header {
-
-    padding: 20px 22px;
-
-    border-bottom: 1px solid #EEF0F2;
-
+    padding: 15px 18px;
+    border-bottom: 1px solid #eef0f2;
 }
-
 
 .produk-card-title {
-
     margin: 0;
-
-    color: #20242C;
-
-    font-size: 15px;
-
+    color: #20242c;
+    font-size: 14px;
     font-weight: 700;
-
 }
 
-
-/* ==================================================
-   TABLE
-================================================== */
+.produk-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 .produk-table {
-
-    margin-bottom: 0;
-
+    width: 100%;
+    min-width: 900px;
+    margin: 0;
+    table-layout: auto;
 }
-
 
 .produk-table thead th {
-
-    background: #F8F9FA;
-
-    color: #8A929E;
-
-    border-bottom: 1px solid #E5E7EB;
-
-    padding: 13px 16px;
-
+    background: #f8f9fa;
+    color: #8a929e;
+    border-bottom: 1px solid #e5e7eb;
+    padding: 10px 12px;
     font-size: 10px;
-
     font-weight: 700;
-
     text-transform: uppercase;
-
-    letter-spacing: .5px;
-
+    letter-spacing: 0.4px;
     white-space: nowrap;
-
 }
-
 
 .produk-table tbody td {
-
-    padding: 14px 16px;
-
-    color: #4B5563;
-
-    border-color: #F0F1F3;
-
-    font-size: 13px;
-
+    padding: 11px 12px;
+    color: #4b5563;
+    border-color: #f0f1f3;
+    font-size: 12px;
     vertical-align: middle;
-
+    white-space: nowrap;
 }
-
 
 .produk-table tbody tr {
-
-    transition: background .2s ease;
-
+    transition: 0.2s;
 }
-
 
 .produk-table tbody tr:hover {
-
-    background: #FAFBFC;
-
+    background: #fafbfc;
 }
-
-
-/* ==================================================
-   NOMOR
-================================================== */
 
 .nomor {
-
-    color: #8A929E;
-
-    font-size: 12px;
-
+    color: #8a929e;
+    font-size: 11px;
 }
-
-
-/* ==================================================
-   USER
-================================================== */
 
 .user-name {
-
-    color: #20242C;
-
+    color: #20242c;
     font-weight: 600;
-
     font-size: 12px;
-
 }
-
-
-/* ==================================================
-   FOTO
-================================================== */
 
 .product-image {
-
-    width: 55px;
-
-    height: 55px;
-
+    width: 48px;
+    height: 48px;
     object-fit: cover;
-
-    border-radius: 9px;
-
-    border: 1px solid #E5E7EB;
-
+    border-radius: 8px;
+    border: 1px solid #e5e7eb;
 }
 
-
-.no-image {
-
-    color: #9AA1AB;
-
+.no-image,
+.no-jenis {
+    color: #9aa1ab;
     font-size: 11px;
-
 }
-
-
-/* ==================================================
-   NAMA PRODUK
-================================================== */
 
 .product-name {
-
-    color: #20242C;
-
+    color: #20242c;
     font-weight: 600;
-
 }
-
-
-/* ==================================================
-   JENIS
-================================================== */
 
 .jenis-badge {
-
     display: inline-flex;
-
     align-items: center;
-
-    padding: 5px 10px;
-
-    background: #F3F4F6;
-
+    padding: 4px 9px;
+    background: #f3f4f6;
     color: #374151;
-
-    border-radius: 7px;
-
-    font-size: 11px;
-
+    border-radius: 6px;
+    font-size: 10px;
     font-weight: 600;
-
     white-space: nowrap;
-
 }
-
-
-.no-jenis {
-
-    color: #9AA1AB;
-
-    font-size: 11px;
-
-}
-
-
-/* ==================================================
-   HARGA
-================================================== */
 
 .harga {
-
-    color: #4B5563;
-
+    color: #4b5563;
     white-space: nowrap;
-
-    font-size: 12px;
-
+    font-size: 11px;
 }
-
-
-/* ==================================================
-   STOK
-================================================== */
 
 .stock-badge {
-
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    min-width: 38px;
-
-    padding: 5px 10px;
-
-    border-radius: 7px;
-
-    background: #F3F4F6;
-
+    min-width: 34px;
+    padding: 4px 9px;
+    border-radius: 6px;
+    background: #f3f4f6;
     color: #374151;
-
-    font-size: 11px;
-
+    font-size: 10px;
     font-weight: 600;
-
 }
-
-
-/* ==================================================
-   ACTION BUTTON
-================================================== */
 
 .action-buttons {
-
     display: flex;
-
     align-items: center;
-
     justify-content: center;
-
-    gap: 6px;
-
+    gap: 5px;
 }
-
 
 .action-btn {
-
-    width: 34px;
-
-    height: 34px;
-
+    width: 32px;
+    height: 32px;
     display: inline-flex;
-
     align-items: center;
-
     justify-content: center;
-
-    border-radius: 8px;
-
+    border-radius: 7px;
     border: 1px solid transparent;
-
     text-decoration: none;
-
-    font-size: 14px;
-
-    transition: all .2s ease;
-
+    font-size: 13px;
+    transition: 0.2s;
     cursor: pointer;
-
 }
-
-
-/* Detail */
 
 .action-detail {
-
-    background: #F3F4F6;
-
-    color: #4B5563;
-
-    border-color: #E5E7EB;
-
+    background: #f3f4f6;
+    color: #4b5563;
+    border-color: #e5e7eb;
 }
-
 
 .action-detail:hover {
-
-    background: #E5E7EB;
-
-    color: #20242C;
-
+    background: #e5e7eb;
+    color: #20242c;
 }
-
-
-/* Edit */
 
 .action-edit {
-
-    background: #ECFDF5;
-
+    background: #ecfdf5;
     color: #047857;
-
-    border-color: #D1FAE5;
-
+    border-color: #d1fae5;
 }
-
 
 .action-edit:hover {
-
-    background: #D1FAE5;
-
-    color: #065F46;
-
+    background: #d1fae5;
+    color: #065f46;
 }
-
-
-/* Hapus */
 
 .action-delete {
-
-    background: #FEF2F2;
-
-    color: #B91C1C;
-
-    border-color: #FECACA;
-
+    background: #fef2f2;
+    color: #b91c1c;
+    border-color: #fecaca;
 }
-
 
 .action-delete:hover {
-
-    background: #FEE2E2;
-
-    color: #991B1B;
-
+    background: #fee2e2;
+    color: #991b1b;
 }
-
-
-/* ==================================================
-   EMPTY
-================================================== */
 
 .empty-state {
-
-    padding: 45px 20px !important;
-
-    color: #9AA1AB !important;
-
+    padding: 35px 20px !important;
+    color: #9aa1ab !important;
     text-align: center;
-
     font-size: 12px !important;
-
 }
-
-
-/* ==================================================
-   PAGINATION
-================================================== */
 
 .produk-card-footer {
-
-    padding: 15px 20px;
-
-    background: #FFFFFF;
-
-    border-top: 1px solid #EEF0F2;
-
+    padding: 12px 18px;
+    background: #fff;
+    border-top: 1px solid #eef0f2;
 }
 
-
-/* ==================================================
-   RESPONSIVE
-================================================== */
-
-@media (max-width: 992px) {
-
-    .produk-wrapper {
-
-        margin-left: 250px;
-
-        padding: 30px;
-
-    }
-
+.produk-card-footer .pagination {
+    margin: 0;
 }
-
 
 @media (max-width: 768px) {
-
     .produk-wrapper {
+        padding: 22px 16px 35px;
+    }
 
-        margin-left: 220px;
-
-        padding: 25px 18px;
-
+    .produk-header > div {
+        align-items: flex-start !important;
+        gap: 12px;
     }
 
     .produk-title {
-
-        font-size: 23px;
-
+        font-size: 21px;
     }
-
 }
 
+@media (max-width: 550px) {
+    .produk-header > div {
+        flex-direction: column;
+    }
+
+    .btn-tambah {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .search-card-body {
+        padding: 12px;
+    }
+}
 </style>
 
-
 <div class="produk-wrapper">
-
-
-    <!-- ==================================================
-         HEADER
-    ================================================== -->
-
     <div class="produk-header">
-
         <div class="d-flex justify-content-between align-items-center">
-
             <div>
-
-                <h2 class="produk-title">
-
-                    Manajemen Produk
-
-                </h2>
-
-                <p class="produk-subtitle mb-0">
-
-                    Kelola seluruh data produk.
-
-                </p>
-
+                <h2 class="produk-title">Manajemen Produk</h2>
+                <p class="produk-subtitle mb-0">Kelola seluruh data produk.</p>
             </div>
-
-
-            <a href="{{ route('produk.create') }}"
-               class="btn-tambah">
-
+            <a href="{{ route('produk.create') }}" class="btn-tambah">
                 <i class="bi bi-plus-lg"></i>
-
                 Tambah Produk
-
             </a>
-
         </div>
-
     </div>
 
-
-
-    <!-- ==================================================
-         SEARCH
-    ================================================== -->
-
     <div class="search-card">
-
         <div class="search-card-body">
-
-            <form
-                action="{{ route('produk.index') }}"
-                method="GET">
-
+            <form action="{{ route('produk.index') }}" method="GET">
                 <div class="input-group">
-
                     <input
                         type="text"
                         name="search"
@@ -678,388 +345,145 @@
                         class="form-control search-input"
                         placeholder="Cari nama produk...">
 
-                    <button
-                        type="submit"
-                        class="search-button">
-
+                    <button type="submit" class="search-button">
                         <i class="bi bi-search me-1"></i>
-
                         Cari
-
                     </button>
-
                 </div>
-
             </form>
-
         </div>
-
     </div>
-
-
-
-    <!-- ==================================================
-         TABLE
-    ================================================== -->
 
     <div class="produk-card">
-
-
-        <!-- Header -->
-
         <div class="produk-card-header">
-
-            <h5 class="produk-card-title">
-
-                Daftar Produk
-
-            </h5>
-
+            <h5 class="produk-card-title">Daftar Produk</h5>
         </div>
 
-
-
-        <!-- Table -->
-
-        <div class="table-responsive">
-
+        <div class="produk-table-wrapper">
             <table class="table produk-table align-middle">
-
                 <thead>
-
                     <tr>
-
-                        <th
-                            width="60"
-                            class="text-center">
-
-                            No
-
-                        </th>
-
-
-                        <th>
-
-                            User
-
-                        </th>
-
-
-                        <th
-                            class="text-center">
-
-                            Foto
-
-                        </th>
-
-
-                        <th>
-
-                            Nama Produk
-
-                        </th>
-
-
-                        <th>
-
-                            Jenis
-
-                        </th>
-
-
-                        <th>
-
-                            Harga Beli
-
-                        </th>
-
-
-                        <th>
-
-                            Harga Jual
-
-                        </th>
-
-
-                        <th
-                            class="text-center">
-
-                            Stok
-
-                        </th>
-
-
-                        <th
-                            width="140"
-                            class="text-center">
-
-                            Aksi
-
-                        </th>
-
+                        <th width="60" class="text-center">No</th>
+                        <th>User</th>
+                        <th class="text-center">Foto</th>
+                        <th>Nama Produk</th>
+                        <th>Jenis</th>
+                        <th>Harga Beli</th>
+                        <th>Harga Jual</th>
+                        <th class="text-center">Stok</th>
+                        <th width="130" class="text-center">Aksi</th>
                     </tr>
-
                 </thead>
 
-
-
                 <tbody>
-
-
-                @forelse($products as $product)
-
-
-                <tr>
-
-
-                    <!-- No -->
-
-                    <td class="text-center nomor">
-
-                        {{ $products->firstItem() + $loop->index }}
-
-                    </td>
-
-
-
-                    <!-- User -->
-
-                    <td>
-
-                        @if($product->user)
-
-                            <span class="user-name">
-
-                                {{ $product->user->name }}
-
-                            </span>
-
-                        @else
-
-                            <span class="no-image">
-
-                                Tidak diketahui
-
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-
-                    <!-- Foto -->
-
-                    <td class="text-center">
-
-                        @if($product->foto)
-
-                            <img
-                                src="{{ asset('storage/' . $product->foto) }}"
-                                class="product-image"
-                                alt="{{ $product->nama }}">
-
-                        @else
-
-                            <span class="no-image">
-
-                                Tidak ada foto
-
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-
-                    <!-- Nama Produk -->
-
-                    <td>
-
-                        <span class="product-name">
-
-                            {{ $product->nama }}
-
-                        </span>
-
-                    </td>
-
-
-
-                    <!-- Jenis -->
-
-                    <td>
-
-                        @if($product->jenis)
-
-                            <span class="jenis-badge">
-
-                                {{ $product->jenis->nama_jenis }}
-
-                            </span>
-
-                        @else
-
-                            <span class="no-jenis">
-
-                                Belum ada jenis
-
-                            </span>
-
-                        @endif
-
-                    </td>
-
-
-
-                    <!-- Harga Beli -->
-
-                    <td>
-
-                        <span class="harga">
-
-                            Rp {{ number_format($product->harga_beli, 0, ',', '.') }}
-
-                        </span>
-
-                    </td>
-
-
-
-                    <!-- Harga Jual -->
-
-                    <td>
-
-                        <span class="harga">
-
-                            Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
-
-                        </span>
-
-                    </td>
-
-
-
-                    <!-- Stok -->
-
-                    <td class="text-center">
-
-                        <span class="stock-badge">
-
-                            {{ $product->stok }}
-
-                        </span>
-
-                    </td>
-
-
-
-                    <!-- Aksi -->
-
-                    <td class="text-center">
-
-                        <div class="action-buttons">
-
-
-                            <!-- Detail -->
-
-                            <a
-                                href="{{ route('produk.show', $product) }}"
-                                class="action-btn action-detail"
-                                title="Lihat Detail">
-
-                                <i class="bi bi-eye"></i>
-
-                            </a>
-
-
-
-                            <!-- Edit -->
-
-                            <a
-                                href="{{ route('produk.edit', $product) }}"
-                                class="action-btn action-edit"
-                                title="Edit Produk">
-
-                                <i class="bi bi-pencil"></i>
-
-                            </a>
-
-
-
-                            <!-- Hapus -->
-
-                            <form
-                                action="{{ route('produk.destroy', $product) }}"
-                                method="POST"
-                                class="d-inline">
-
-                                @csrf
-
-                                @method('DELETE')
-
-                                <button
-                                    type="submit"
-                                    class="action-btn action-delete"
-                                    title="Hapus Produk"
-                                    onclick="return confirm('Apakah yakin ingin menghapus produk ini?')">
-
-                                    <i class="bi bi-trash"></i>
-
-                                </button>
-
-                            </form>
-
-
-                        </div>
-
-                    </td>
-
-
-                </tr>
-
-
-                @empty
-
-
-                <tr>
-
-                    <td
-                        colspan="9"
-                        class="empty-state">
-
-                        Belum ada data produk.
-
-                    </td>
-
-                </tr>
-
-
-                @endforelse
-
-
+                    @forelse($products as $product)
+                        <tr>
+                            <td class="text-center nomor">
+                                {{ $products->firstItem() + $loop->index }}
+                            </td>
+
+                            <td>
+                                @if($product->user)
+                                    <span class="user-name">{{ $product->user->name }}</span>
+                                @else
+                                    <span class="no-image">Tidak diketahui</span>
+                                @endif
+                            </td>
+
+                            <td class="text-center">
+                                @if($product->foto)
+                                    <img
+                                        src="{{ asset('storage/' . $product->foto) }}"
+                                        class="product-image"
+                                        alt="{{ $product->nama }}">
+                                @else
+                                    <span class="no-image">Tidak ada foto</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                <span class="product-name">{{ $product->nama }}</span>
+                            </td>
+
+                            <td>
+                                @if($product->jenis)
+                                    <span class="jenis-badge">
+                                        {{ $product->jenis->nama_jenis }}
+                                    </span>
+                                @else
+                                    <span class="no-jenis">Belum ada jenis</span>
+                                @endif
+                            </td>
+
+                            <td>
+                                <span class="harga">
+                                    Rp {{ number_format($product->harga_beli, 0, ',', '.') }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span class="harga">
+                                    Rp {{ number_format($product->harga_jual, 0, ',', '.') }}
+                                </span>
+                            </td>
+
+                            <td class="text-center">
+                                <span class="stock-badge">{{ $product->stok }}</span>
+                            </td>
+
+                            <td class="text-center">
+                                <div class="action-buttons">
+                                    <a
+                                        href="{{ route('produk.show', $product) }}"
+                                        class="action-btn action-detail"
+                                        title="Lihat Detail">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+
+                                    <a
+                                        href="{{ route('produk.edit', $product) }}"
+                                        class="action-btn action-edit"
+                                        title="Edit Produk">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+
+                                    <form
+                                        action="{{ route('produk.destroy', $product) }}"
+                                        method="POST"
+                                        class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+
+                                        <button
+                                            type="submit"
+                                            class="action-btn action-delete"
+                                            title="Hapus Produk"
+                                            onclick="return confirm('Apakah yakin ingin menghapus produk ini?')">
+                                            <i class="bi bi-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                    @empty
+                        <tr>
+                            <td colspan="9" class="empty-state">
+                                Belum ada data produk.
+                            </td>
+                        </tr>
+                    @endforelse
                 </tbody>
-
             </table>
-
         </div>
-
-
-
-        <!-- Pagination -->
 
         <div class="produk-card-footer">
-
             {{ $products->links() }}
-
         </div>
-
-
     </div>
-
-
 </div>
 
+<link
+    rel="stylesheet"
+    href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 @endsection
