@@ -159,6 +159,10 @@
     table-layout: auto;
 }
 
+/* ==================================================
+   TABLE HEADER
+================================================== */
+
 .jenis-table thead th {
     background: #f8f9fa;
     color: #8a929e;
@@ -169,7 +173,13 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
 }
+
+/* ==================================================
+   TABLE DATA
+================================================== */
 
 .jenis-table tbody td {
     padding: 11px 12px;
@@ -177,6 +187,7 @@
     border-color: #f0f1f3;
     font-size: 12px;
     vertical-align: middle;
+    text-align: center;
 }
 
 .jenis-table tbody tr {
@@ -194,6 +205,7 @@
 .nomor {
     color: #8a929e;
     font-size: 11px;
+    text-align: center !important;
 }
 
 /* ==================================================
@@ -203,9 +215,11 @@
 .jenis-name {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 9px;
     color: #20242c;
     font-weight: 600;
+    text-align: center;
 }
 
 .jenis-icon {
@@ -228,29 +242,41 @@
 .description {
     display: block;
     max-width: 300px;
+    margin: 0 auto;
     overflow: hidden;
     color: #4b5563;
     text-overflow: ellipsis;
     white-space: nowrap;
+    text-align: center;
 }
 
 .empty-text {
     color: #9aa1ab;
     font-size: 11px;
     font-style: italic;
+    text-align: center;
 }
 
 /* ==================================================
    CREATOR
 ================================================== */
 
+.creator {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .creator-name {
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 5px;
     color: #374151;
     font-size: 12px;
     font-weight: 600;
+    text-align: center;
 }
 
 .creator-name i {
@@ -261,6 +287,7 @@
     margin-top: 3px;
     color: #9aa1ab;
     font-size: 10px;
+    text-align: center;
 }
 
 /* ==================================================
@@ -325,7 +352,7 @@
 .empty-state {
     padding: 35px 20px !important;
     color: #9aa1ab !important;
-    text-align: center;
+    text-align: center !important;
     font-size: 12px !important;
 }
 
@@ -346,17 +373,20 @@
     display: block;
     color: #374151;
     font-size: 13px;
+    text-align: center;
 }
 
 .empty-state p {
     margin: 4px 0 13px;
     color: #9aa1ab;
     font-size: 11px;
+    text-align: center;
 }
 
 .btn-add-empty {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     gap: 6px;
     padding: 8px 13px;
     border-radius: 7px;
@@ -417,6 +447,7 @@
         <div class="jenis-header-inner">
 
             <div>
+
                 <h2 class="jenis-title">
                     Manajemen Jenis
                 </h2>
@@ -424,6 +455,7 @@
                 <p class="jenis-subtitle mb-0">
                     Kelola seluruh jenis produk yang tersedia.
                 </p>
+
             </div>
 
             <!-- TOMBOL TETAP DI KANAN -->
@@ -534,15 +566,15 @@
 
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Nama Jenis
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Keterangan
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Ditambahkan Oleh
                         </th>
 
@@ -574,7 +606,7 @@
 
 
                             <!-- NAMA JENIS -->
-                            <td>
+                            <td class="text-center">
 
                                 <div class="jenis-name">
 
@@ -594,7 +626,7 @@
 
 
                             <!-- KETERANGAN -->
-                            <td>
+                            <td class="text-center">
 
                                 @if($item->keterangan)
 
@@ -618,7 +650,7 @@
 
 
                             <!-- CREATOR -->
-                            <td>
+                            <td class="text-center">
 
                                 @if($item->creator)
 

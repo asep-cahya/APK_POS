@@ -167,6 +167,8 @@
     table-layout: auto;
 }
 
+/* HEADER TABEL TETAP DI TENGAH */
+
 .produk-table thead th {
     background: #f8f9fa;
     color: #8a929e;
@@ -177,7 +179,11 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     white-space: nowrap;
+    text-align: center;
+    vertical-align: middle;
 }
+
+/* DATA TABEL DI TENGAH */
 
 .produk-table tbody td {
     padding: 11px 12px;
@@ -186,6 +192,7 @@
     font-size: 12px;
     vertical-align: middle;
     white-space: nowrap;
+    text-align: center;
 }
 
 .produk-table tbody tr {
@@ -203,6 +210,7 @@
 .nomor {
     color: #8a929e;
     font-size: 11px;
+    text-align: center;
 }
 
 /* ==================================================
@@ -213,11 +221,13 @@
     color: #20242c;
     font-size: 12px;
     font-weight: 600;
+    text-align: center;
 }
 
 .no-user {
     color: #9aa1ab;
     font-size: 11px;
+    text-align: center;
 }
 
 /* ==================================================
@@ -244,6 +254,8 @@
 .product-name {
     color: #20242c;
     font-weight: 600;
+    text-align: center;
+    display: inline-block;
 }
 
 /* ==================================================
@@ -253,6 +265,7 @@
 .jenis-badge {
     display: inline-flex;
     align-items: center;
+    justify-content: center;
     padding: 4px 9px;
     background: #f3f4f6;
     color: #374151;
@@ -275,6 +288,7 @@
     color: #4b5563;
     white-space: nowrap;
     font-size: 11px;
+    text-align: center;
 }
 
 /* ==================================================
@@ -369,7 +383,7 @@
 .empty-state {
     padding: 35px 20px !important;
     color: #9aa1ab !important;
-    text-align: center;
+    text-align: center !important;
     font-size: 12px !important;
 }
 
@@ -521,23 +535,16 @@
 
                     <tr>
 
-                        <th
-                            width="60"
-                            class="text-center">
-
+                        <th width="60">
                             No
-
                         </th>
 
                         <th>
                             User
                         </th>
 
-                        <th
-                            class="text-center">
-
+                        <th>
                             Foto
-
                         </th>
 
                         <th>
@@ -556,19 +563,12 @@
                             Harga Jual
                         </th>
 
-                        <th
-                            class="text-center">
-
+                        <th>
                             Stok
-
                         </th>
 
-                        <th
-                            width="130"
-                            class="text-center">
-
+                        <th width="130">
                             Aksi
-
                         </th>
 
                     </tr>
@@ -583,8 +583,7 @@
                         <tr>
 
                             <!-- NO -->
-                            <td
-                                class="text-center nomor">
+                            <td class="nomor">
 
                                 {{ $products->firstItem() + $loop->index }}
 
@@ -612,7 +611,7 @@
 
 
                             <!-- FOTO -->
-                            <td class="text-center">
+                            <td>
 
                                 @if($product->foto)
 
@@ -697,7 +696,7 @@
 
 
                             <!-- STOK -->
-                            <td class="text-center">
+                            <td>
 
                                 <span class="stock-badge">
                                     {{ $product->stok }}
@@ -707,7 +706,7 @@
 
 
                             <!-- AKSI -->
-                            <td class="text-center">
+                            <td>
 
                                 <div class="action-buttons">
 

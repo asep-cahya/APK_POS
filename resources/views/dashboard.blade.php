@@ -2,6 +2,7 @@
 @section('title', 'Dashboard')
 @section('content')
 @include('layouts.navbar')
+
 <style>
 /* ==================================================
    DASHBOARD
@@ -127,6 +128,7 @@
 .dashboard-table {
     width: 100%;
     margin-bottom: 0;
+    text-align: center;
 }
 .dashboard-table thead th {
     background: #F8F9FA;
@@ -138,6 +140,7 @@
     text-transform: uppercase;
     letter-spacing: .5px;
     white-space: nowrap;
+    text-align: center;
 }
 .dashboard-table tbody td {
     padding: 11px 15px;
@@ -145,6 +148,7 @@
     border-color: #F0F1F3;
     font-size: 12px;
     vertical-align: middle;
+    text-align: center;
 }
 .dashboard-table tbody tr:hover {
     background: #FAFBFC;
@@ -152,6 +156,7 @@
 .product-name {
     color: #20242C;
     font-weight: 600;
+    text-align: center;
 }
 /* ==================================================
    BADGE STOK
@@ -189,7 +194,7 @@
 .empty-state {
     padding: 28px 15px !important;
     color: #9AA1AB !important;
-    text-align: center;
+    text-align: center !important;
     font-size: 11px !important;
 }
 /* ==================================================
@@ -220,6 +225,7 @@
     }
 }
 </style>
+
 <div class="dashboard-wrapper">
     <!-- HEADER -->
     <div class="dashboard-header">
@@ -228,6 +234,7 @@
             <p class="dashboard-date">{{ $tanggalHariIni->translatedFormat('l, d F Y') }}</p>
         </div>
     </div>
+
     <!-- STATISTIK -->
     <div class="dashboard-stats">
         <!-- Total Penjualan -->
@@ -237,9 +244,10 @@
             </div>
             <div class="stat-label">Total Penjualan</div>
             <div class="stat-value green">
-                Rp {{ number_format($ringkasan['total_penjualan'],0,',','.') }}
+                Rp {{ number_format($ringkasan['total_penjualan'], 0, ',', '.') }}
             </div>
         </div>
+
         <!-- Total Transaksi -->
         <div class="stat-card">
             <div class="stat-icon">
@@ -250,6 +258,7 @@
                 {{ $ringkasan['total_transaksi'] }}
             </div>
         </div>
+
         <!-- Pembayaran Cash -->
         <div class="stat-card">
             <div class="stat-icon">
@@ -257,9 +266,10 @@
             </div>
             <div class="stat-label">Pembayaran Cash</div>
             <div class="stat-value">
-                Rp {{ number_format($ringkasan['total_cash'],0,',','.') }}
+                Rp {{ number_format($ringkasan['total_cash'], 0, ',', '.') }}
             </div>
         </div>
+
         <!-- Pembayaran Non Tunai -->
         <div class="stat-card">
             <div class="stat-icon">
@@ -267,10 +277,11 @@
             </div>
             <div class="stat-label">Pembayaran Non Tunai</div>
             <div class="stat-value">
-                Rp {{ number_format($ringkasan['total_non_tunai'],0,',','.') }}
+                Rp {{ number_format($ringkasan['total_non_tunai'], 0, ',', '.') }}
             </div>
         </div>
     </div>
+
     <!-- STOK TERENDAH DAN STOK HABIS -->
     <div class="dashboard-stock">
         <!-- Produk Stok Terendah -->
@@ -284,7 +295,7 @@
                         <tr>
                             <th>No</th>
                             <th>Produk</th>
-                            <th class="text-center">Stok</th>
+                            <th>Stok</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -292,7 +303,7 @@
                             <tr>
                                 <td>{{ $produkStokRendah->firstItem() + $index }}</td>
                                 <td class="product-name">{{ $produk->nama }}</td>
-                                <td class="text-center">
+                                <td>
                                     <span class="stock-badge">{{ $produk->stok }}</span>
                                 </td>
                             </tr>
@@ -308,6 +319,7 @@
             </div>
             {{ $produkStokRendah->links() }}
         </div>
+
         <!-- Produk Stok Habis -->
         <div class="dashboard-card">
             <div class="dashboard-card-header">
@@ -319,7 +331,7 @@
                         <tr>
                             <th>No</th>
                             <th>Produk</th>
-                            <th class="text-center">Stok</th>
+                            <th>Stok</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -327,7 +339,7 @@
                             <tr>
                                 <td>{{ $produkStokHabis->firstItem() + $index }}</td>
                                 <td class="product-name">{{ $produk->nama }}</td>
-                                <td class="text-center">
+                                <td>
                                     <span class="stock-badge">{{ $produk->stok }}</span>
                                 </td>
                             </tr>
@@ -344,6 +356,7 @@
             {{ $produkStokHabis->links() }}
         </div>
     </div>
+
     <!-- PRODUK TERLARIS -->
     <div class="dashboard-card">
         <div class="dashboard-card-header">
@@ -355,8 +368,8 @@
                     <tr>
                         <th>No</th>
                         <th>Produk</th>
-                        <th class="text-center">Stok</th>
-                        <th class="text-center">Terjual</th>
+                        <th>Stok</th>
+                        <th>Terjual</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -364,8 +377,8 @@
                         <tr>
                             <td>{{ $index + 1 }}</td>
                             <td class="product-name">{{ $produk->nama }}</td>
-                            <td class="text-center">{{ $produk->stok }}</td>
-                            <td class="text-center">
+                            <td>{{ $produk->stok }}</td>
+                            <td>
                                 <span class="sold-badge">{{ $produk->total_terjual }}</span>
                             </td>
                         </tr>
@@ -381,4 +394,5 @@
         </div>
     </div>
 </div>
+
 @endsection

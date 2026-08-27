@@ -174,6 +174,7 @@
 .penjualan-table-wrapper {
     width: 100%;
     overflow-x: auto;
+    overflow-y: hidden;
     -webkit-overflow-scrolling: touch;
 }
 
@@ -182,6 +183,7 @@
     min-width: 850px;
     margin: 0;
     table-layout: auto;
+    white-space: nowrap;
 }
 
 .penjualan-table thead th {
@@ -194,6 +196,8 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     white-space: nowrap;
+    vertical-align: middle;
+    text-align: center;
 }
 
 .penjualan-table tbody td {
@@ -203,10 +207,13 @@
     font-size: 12px;
     vertical-align: middle;
     white-space: nowrap;
+    height: 58px;
+    text-align: center;
 }
 
 .penjualan-table tbody tr {
     transition: 0.2s;
+    white-space: nowrap;
 }
 
 .penjualan-table tbody tr:hover {
@@ -216,34 +223,43 @@
 /* NOMOR */
 
 .nomor {
+    width: 60px;
     color: #8a929e;
     font-size: 11px;
+    white-space: nowrap;
+    text-align: center;
 }
 
 /* TANGGAL */
 
 .tanggal {
+    display: inline-block;
     color: #4b5563;
     font-size: 11px;
     white-space: nowrap;
+    text-align: center;
 }
 
 /* KASIR */
 
 .kasir {
+    display: inline-block;
     color: #20242c;
     font-size: 12px;
     font-weight: 600;
     white-space: nowrap;
+    text-align: center;
 }
 
 /* TOTAL */
 
 .total {
+    display: inline-block;
     color: #20242c;
     font-size: 12px;
     font-weight: 700;
     white-space: nowrap;
+    text-align: center;
 }
 
 /* METODE */
@@ -283,13 +299,15 @@
 /* ACTION */
 
 .action-buttons {
-    display: flex;
+    display: inline-flex;
     align-items: center;
     justify-content: center;
     gap: 5px;
+    white-space: nowrap;
 }
 
 .action-buttons form {
+    display: inline-flex;
     margin: 0;
 }
 
@@ -299,6 +317,7 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    flex-shrink: 0;
     border-radius: 7px;
     border: 1px solid transparent;
     text-decoration: none;
@@ -351,8 +370,9 @@
 .empty-state {
     padding: 35px 20px !important;
     color: #9aa1ab !important;
-    text-align: center;
+    text-align: center !important;
     font-size: 12px !important;
+    white-space: normal !important;
 }
 
 /* FOOTER */
@@ -390,6 +410,10 @@
 
     .penjualan-card-header {
         padding: 15px 16px;
+    }
+
+    .penjualan-table {
+        min-width: 850px;
     }
 }
 
@@ -462,7 +486,6 @@
                 class="btn-transaksi">
 
                 <i class="bi bi-plus-lg"></i>
-
                 Buat Transaksi
 
             </a>
@@ -495,7 +518,6 @@
                         class="search-button">
 
                         <i class="bi bi-search me-1"></i>
-
                         Cari
 
                     </button>
@@ -538,23 +560,27 @@
                             No
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Tanggal
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Kasir
                         </th>
 
-                        <th>
+                        <th class="text-center">
                             Total
                         </th>
 
-                        <th class="text-center">
+                        <th
+                            width="130"
+                            class="text-center">
                             Metode
                         </th>
 
-                        <th class="text-center">
+                        <th
+                            width="130"
+                            class="text-center">
                             Status
                         </th>
 
@@ -574,27 +600,43 @@
 
                         <tr>
 
+                            <!-- NO -->
+
                             <td class="text-center nomor">
                                 {{ $sales->firstItem() + $loop->index }}
                             </td>
 
-                            <td>
+                            <!-- TANGGAL -->
+
+                            <td class="text-center">
+
                                 <span class="tanggal">
                                     {{ $sale->created_at->translatedFormat('d M Y H:i') }}
                                 </span>
+
                             </td>
 
-                            <td>
+                            <!-- KASIR -->
+
+                            <td class="text-center">
+
                                 <span class="kasir">
                                     {{ $sale->user->name }}
                                 </span>
+
                             </td>
 
-                            <td>
+                            <!-- TOTAL -->
+
+                            <td class="text-center">
+
                                 <span class="total">
                                     Rp {{ number_format($sale->total_pembayaran, 0, ',', '.') }}
                                 </span>
+
                             </td>
+
+                            <!-- METODE -->
 
                             <td class="text-center">
 
@@ -620,6 +662,8 @@
 
                             </td>
 
+                            <!-- STATUS -->
+
                             <td class="text-center">
 
                                 <span class="status-badge">
@@ -631,6 +675,8 @@
                                 </span>
 
                             </td>
+
+                            <!-- AKSI -->
 
                             <td class="text-center">
 
@@ -668,11 +714,9 @@
 
                                         <form
                                             action="{{ route('penjualan.destroy', $sale) }}"
-                                            method="POST"
-                                            class="d-inline">
+                                            method="POST">
 
                                             @csrf
-
                                             @method('DELETE')
 
                                             <button

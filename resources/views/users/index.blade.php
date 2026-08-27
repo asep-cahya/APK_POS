@@ -163,6 +163,7 @@
     text-transform: uppercase;
     letter-spacing: 0.4px;
     white-space: nowrap;
+    text-align: center;
 }
 
 .users-table tbody td {
@@ -172,6 +173,9 @@
     font-size: 12px;
     vertical-align: middle;
     white-space: nowrap;
+
+    /* DATA DI TENGAH */
+    text-align: center;
 }
 
 .users-table tbody tr {
@@ -185,6 +189,7 @@
 .nomor {
     color: #8a929e;
     font-size: 11px;
+    text-align: center;
 }
 
 .user-name {
@@ -271,7 +276,7 @@
 .empty-state {
     padding: 35px 20px !important;
     color: #9aa1ab !important;
-    text-align: center;
+    text-align: center !important;
     font-size: 12px !important;
 }
 
@@ -437,12 +442,8 @@
 
                     <tr>
 
-                        <th
-                            width="60"
-                            class="text-center">
-
+                        <th width="60">
                             No
-
                         </th>
 
                         <th>
@@ -453,16 +454,12 @@
                             Email
                         </th>
 
-                        <th class="text-center">
+                        <th>
                             Role
                         </th>
 
-                        <th
-                            width="120"
-                            class="text-center">
-
+                        <th width="120">
                             Aksi
-
                         </th>
 
                     </tr>
@@ -476,7 +473,7 @@
                         <tr>
 
                             <!-- NO -->
-                            <td class="text-center nomor">
+                            <td class="nomor">
 
                                 {{ $users->firstItem() + $loop->index }}
 
@@ -501,7 +498,7 @@
                             </td>
 
                             <!-- ROLE -->
-                            <td class="text-center">
+                            <td>
 
                                 @if($user->role->name == 'admin')
 
@@ -520,7 +517,7 @@
                             </td>
 
                             <!-- AKSI -->
-                            <td class="text-center">
+                            <td>
 
                                 <div class="action-wrapper">
 
