@@ -4,7 +4,7 @@
 
 @section('content')
 
-@include('layouts.navbar')
+
 
 <div class="jenis-page">
     <div class="jenis-container jenis-form-container">
