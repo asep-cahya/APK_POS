@@ -2,25 +2,25 @@
 
 namespace App\Policies;
 
-use App\Models\Produk;
+use App\Models\Jenis;
 use App\Models\User;
 
-class ProdukPolicy
+class JenisPolicy
 {
     /**
      * Determine whether the user can view any models.
      */
     public function viewAny(User $user): bool
     {
-        return in_array($user->role->name, ['admin', 'kasir'], true);
+        return $user->role->name === 'admin';
     }
 
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Produk $produk): bool
+    public function view(User $user, Jenis $jenis): bool
     {
-        return in_array($user->role->name, ['admin', 'kasir'], true);
+        return $user->role->name === 'admin';
     }
 
     /**
@@ -34,7 +34,7 @@ class ProdukPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Produk $produk): bool
+    public function update(User $user, Jenis $jenis): bool
     {
         return $user->role->name === 'admin';
     }
@@ -42,7 +42,7 @@ class ProdukPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Produk $produk): bool
+    public function delete(User $user, Jenis $jenis): bool
     {
         return $user->role->name === 'admin';
     }
@@ -50,7 +50,7 @@ class ProdukPolicy
     /**
      * Determine whether the user can restore the model.
      */
-    public function restore(User $user, Produk $produk): bool
+    public function restore(User $user, Jenis $jenis): bool
     {
         return false;
     }
@@ -58,7 +58,7 @@ class ProdukPolicy
     /**
      * Determine whether the user can permanently delete the model.
      */
-    public function forceDelete(User $user, Produk $produk): bool
+    public function forceDelete(User $user, Jenis $jenis): bool
     {
         return false;
     }

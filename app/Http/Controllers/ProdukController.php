@@ -189,6 +189,7 @@ class ProdukController extends Controller
      */
     public function destroy(Produk $produk)
     {
+        $this->authorize('delete', $produk);
         DB::transaction(function () use ($produk) {
 
             // Hapus detail transaksi yang memakai produk ini

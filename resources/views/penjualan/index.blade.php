@@ -695,7 +695,7 @@
 
                                     <!-- EDIT -->
 
-                                    @can('view', $sale)
+                                    @can('update', $sale)
 
                                         <a
                                             href="{{ route('penjualan.edit', $sale) }}"

@@ -461,15 +461,17 @@
             </div>
 
             <!-- TOMBOL TETAP DI KANAN -->
-            <a
-                href="{{ route('produk.create') }}"
-                class="btn-tambah">
+            @can('create', App\Models\Produk::class)
+                <a
+                    href="{{ route('produk.create') }}"
+                    class="btn-tambah">
 
-                <i class="bi bi-plus-lg"></i>
+                    <i class="bi bi-plus-lg"></i>
 
-                Tambah Produk
+                    Tambah Produk
 
-            </a>
+                </a>
+            @endcan
 
         </div>
 
@@ -722,37 +724,45 @@
 
 
                                     <!-- EDIT -->
-                                    <a
-                                        href="{{ route('produk.edit', $product) }}"
-                                        class="action-btn action-edit"
-                                        title="Edit Produk">
+                                    @can('update', $product)
 
-                                        <i class="bi bi-pencil"></i>
+                                        <a
+                                            href="{{ route('produk.edit', $product) }}"
+                                            class="action-btn action-edit"
+                                            title="Edit Produk">
 
-                                    </a>
+                                            <i class="bi bi-pencil"></i>
+
+                                        </a>
+
+                                    @endcan
 
 
                                     <!-- HAPUS -->
-                                    <form
-                                        action="{{ route('produk.destroy', $product) }}"
-                                        method="POST"
-                                        class="d-inline">
+                                    @can('delete', $product)
 
-                                        @csrf
+                                        <form
+                                            action="{{ route('produk.destroy', $product) }}"
+                                            method="POST"
+                                            class="d-inline">
 
-                                        @method('DELETE')
+                                            @csrf
 
-                                        <button
-                                            type="submit"
-                                            class="action-btn action-delete"
-                                            title="Hapus Produk"
-                                            onclick="return confirm('Apakah yakin ingin menghapus produk ini?')">
+                                            @method('DELETE')
 
-                                            <i class="bi bi-trash"></i>
+                                            <button
+                                                type="submit"
+                                                class="action-btn action-delete"
+                                                title="Hapus Produk"
+                                                onclick="return confirm('Apakah yakin ingin menghapus produk ini?')">
 
-                                        </button>
+                                                <i class="bi bi-trash"></i>
 
-                                    </form>
+                                            </button>
+
+                                        </form>
+
+                                    @endcan
 
                                 </div>
 

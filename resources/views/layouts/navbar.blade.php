@@ -26,11 +26,14 @@
             </a>
         @endif
 
-        <a href="{{ route('jenis.index') }}"
-           class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}">
-            <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
-            <span>Jenis</span>
-        </a>
+       @if(auth()->user()->role->name == 'admin')
+    <a href="{{ route('jenis.index') }}"
+       class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}">
+        <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
+        <span>Jenis</span>
+    </a>
+@endif
+
 
         <a href="{{ route('produk.index') }}"
            class="nav-link {{ Request::is('produk*') ? 'active' : '' }}">
