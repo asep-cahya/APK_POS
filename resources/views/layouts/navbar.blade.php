@@ -1,9 +1,6 @@
 <nav class="top-navbar">
     {{-- BRAND --}}
     <a href="{{ route('dashboard') }}" class="brand">
-        <div class="brand-logo">
-            <span>GK</span>
-        </div>
         <div class="brand-info">
             <div class="brand-name">Gaya Kita</div>
             <div class="brand-subtitle">POINT OF SALE SYSTEM</div>
@@ -26,14 +23,13 @@
             </a>
         @endif
 
-       @if(auth()->user()->role->name == 'admin')
-    <a href="{{ route('jenis.index') }}"
-       class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}">
-        <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
-        <span>Jenis</span>
-    </a>
-@endif
-
+        @if(auth()->user()->role->name == 'admin')
+            <a href="{{ route('jenis.index') }}"
+               class="nav-link {{ Request::is('jenis*') ? 'active' : '' }}">
+                <span class="nav-icon"><i class="bi bi-tags-fill"></i></span>
+                <span>Jenis</span>
+            </a>
+        @endif
 
         <a href="{{ route('produk.index') }}"
            class="nav-link {{ Request::is('produk*') ? 'active' : '' }}">
@@ -51,9 +47,6 @@
     {{-- USER --}}
     <div class="nav-user">
         <div class="user-profile">
-            <div class="user-avatar">
-                {{ strtoupper(substr(auth()->user()->name, 0, 1)) }}
-            </div>
             <div class="user-detail">
                 <div class="user-name">{{ auth()->user()->name }}</div>
                 <div class="user-role">
@@ -103,38 +96,6 @@
     min-width: 225px;
     text-decoration: none;
     color: #111827;
-}
-
-.brand-logo {
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 11px;
-    background: linear-gradient(135deg,#10b981,#059669);
-    color: #fff;
-    font-size: 12px;
-    font-weight: 800;
-    box-shadow: 0 5px 12px rgba(16,185,129,.20);
-    position: relative;
-    overflow: hidden;
-}
-
-.brand-logo::after {
-    content: "";
-    position: absolute;
-    width: 22px;
-    height: 22px;
-    right: -9px;
-    bottom: -9px;
-    border-radius: 50%;
-    background: rgba(255,255,255,.15);
-}
-
-.brand-logo span {
-    position: relative;
-    z-index: 2;
 }
 
 .brand-name {
@@ -239,20 +200,6 @@
 
 .user-profile:hover {
     background: #f7f8f9;
-}
-
-.user-avatar {
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    background: #20242c;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 700;
-    box-shadow: 0 3px 8px rgba(32,36,44,.12);
 }
 
 .user-name {
@@ -385,12 +332,6 @@
         padding: 0 12px;
     }
 
-    .brand-logo {
-        width: 36px;
-        height: 36px;
-        border-radius: 9px;
-    }
-
     .nav-menu {
         gap: 3px;
     }
@@ -416,11 +357,6 @@
 
     .user-profile {
         padding: 0;
-    }
-
-    .user-avatar {
-        width: 34px;
-        height: 34px;
     }
 
     .logout-btn {
