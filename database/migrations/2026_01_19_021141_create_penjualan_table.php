@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained('users', 'id')->restrictOnDelete();
             $table->integer('total_pembayaran');
             $table->string('metode_pembayaran');
+            $table->integer('paid_amount')->nullable();
             $table->enum('status', ['OPEN', 'COMPLETED']);
             $table->timestamps();
         });

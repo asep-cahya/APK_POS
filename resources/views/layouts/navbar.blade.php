@@ -2,10 +2,10 @@
     {{-- BRAND --}}
     <a href="{{ route('dashboard') }}" class="brand">
         <div class="brand-logo">
-            <span>PA</span>
+            <span>GK</span>
         </div>
         <div class="brand-info">
-            <div class="brand-name">POS AsepCahya</div>
+            <div class="brand-name">Gaya Kita</div>
             <div class="brand-subtitle">POINT OF SALE SYSTEM</div>
         </div>
     </a>

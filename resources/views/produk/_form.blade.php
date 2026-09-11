@@ -119,7 +119,7 @@
                 <!-- Harga Beli -->
                 <div class="form-group">
                     <label for="purchase_price">
-                        Harga Beli <span>*</span>
+                        Harga Pokok <span>*</span>
                     </label>
 
                     <div class="price-input">

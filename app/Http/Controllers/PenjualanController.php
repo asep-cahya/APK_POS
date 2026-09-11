@@ -8,6 +8,7 @@ use App\Models\Produk;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\ValidationException;
 
 class PenjualanController extends Controller
 {
@@ -131,6 +132,7 @@ class PenjualanController extends Controller
 
         $request->validate([
             'payment_method' => 'required|in:CASH,QRIS',
+            'paid_amount' => 'required_if:payment_method,CASH|numeric|min:0',
         ]);
 
         // Pastikan transaksi masih OPEN
@@ -155,9 +157,23 @@ class PenjualanController extends Controller
             // untuk mencegah manipulasi total pembayaran
             $total = $penjualan->itemPenjualan()->sum('subtotal');
 
+            // Jika CASH, gunakan nominal uang yang dibayar
+            // Jika QRIS, paid_amount tidak digunakan
+            $paidAmount = $request->payment_method === 'CASH'
+                ? $request->paid_amount
+                : null;
+
+            // Pastikan uang tunai mencukupi
+            if ($request->payment_method === 'CASH' && $paidAmount < $total) {
+                throw ValidationException::withMessages([
+                    'paid_amount' => 'Uang tunai yang dibayarkan kurang dari total pembayaran.',
+                ]);
+            }
+
             $penjualan->update([
                 'metode_pembayaran' => $request->payment_method,
                 'total_pembayaran'  => $total,
+                'paid_amount'       => $paidAmount,
                 'status'            => 'COMPLETED',
             ]);
         });

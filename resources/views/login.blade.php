@@ -174,11 +174,11 @@
             <div class="login-header">
 
                 <h2 class="login-title">
-                    Login POS
+                    Login ke Gaya Kita
                 </h2>
 
                 <p class="login-subtitle">
-                    Masuk untuk mengelola transaksi Anda.
+                    Silakan masuk untuk mengelola transaksi.
                 </p>
 
             </div>

@@ -370,7 +370,7 @@
                 </h2>
 
                 <p class="users-subtitle">
-                    Kelola data pengguna aplikasi POS.
+                    Kelola data pengguna aplikasi POS Gaya Kita.
                 </p>
             </div>
 

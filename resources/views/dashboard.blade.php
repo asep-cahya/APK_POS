@@ -230,7 +230,7 @@
     <!-- HEADER -->
     <div class="dashboard-header">
         <div>
-            <h2 class="dashboard-title">Dashboard POS</h2>
+            <h2 class="dashboard-title">Dashboard Gaya Kita</h2>
             <p class="dashboard-date">{{ $tanggalHariIni->translatedFormat('l, d F Y') }}</p>
         </div>
     </div>
