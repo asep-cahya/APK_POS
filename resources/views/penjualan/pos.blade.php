@@ -388,7 +388,7 @@
                             >
 
                                 <label for="paid_amount">
-                                    Uang Dibayar
+                                    Nominal Uang
                                 </label>
 
                                 <div class="payment-wrapper">
